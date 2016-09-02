@@ -1,0 +1,5 @@
+D:\Training EPAM Nastya\Auction\DAL.Interface\bin\Debug\DAL.Interface.dll
+D:\Training EPAM Nastya\Auction\DAL.Interface\bin\Debug\DAL.Interface.pdb
+D:\Training EPAM Nastya\Auction\DAL.Interface\obj\Debug\DAL.Interface.dll
+D:\Training EPAM Nastya\Auction\DAL.Interface\obj\Debug\DAL.Interface.pdb
+D:\Training EPAM Nastya\Auction\DAL.Interface\obj\Debug\DAL.Interface.csprojResolveAssemblyReference.cache

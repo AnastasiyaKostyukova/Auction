@@ -1,0 +1,7 @@
+D:\Training EPAM Nastya\Auction\EFDAL\bin\Debug\EFDAL.dll
+D:\Training EPAM Nastya\Auction\EFDAL\bin\Debug\EFDAL.pdb
+D:\Training EPAM Nastya\Auction\EFDAL\obj\Debug\EFDAL.dll
+D:\Training EPAM Nastya\Auction\EFDAL\obj\Debug\EFDAL.pdb
+D:\Training EPAM Nastya\Auction\EFDAL\bin\Debug\DAL.Interface.dll
+D:\Training EPAM Nastya\Auction\EFDAL\bin\Debug\DAL.Interface.pdb
+D:\Training EPAM Nastya\Auction\EFDAL\obj\Debug\EFDAL.csprojResolveAssemblyReference.cache

@@ -1,0 +1,9 @@
+D:\Training EPAM Nastya\Auction\BLL\obj\Debug\BLL.csprojResolveAssemblyReference.cache
+D:\Training EPAM Nastya\Auction\BLL\bin\Debug\BLL.dll
+D:\Training EPAM Nastya\Auction\BLL\bin\Debug\BLL.pdb
+D:\Training EPAM Nastya\Auction\BLL\bin\Debug\BLL.Interface.dll
+D:\Training EPAM Nastya\Auction\BLL\bin\Debug\DAL.Interface.dll
+D:\Training EPAM Nastya\Auction\BLL\bin\Debug\BLL.Interface.pdb
+D:\Training EPAM Nastya\Auction\BLL\bin\Debug\DAL.Interface.pdb
+D:\Training EPAM Nastya\Auction\BLL\obj\Debug\BLL.dll
+D:\Training EPAM Nastya\Auction\BLL\obj\Debug\BLL.pdb
