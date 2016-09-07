@@ -8,6 +8,7 @@ namespace DAL.Interface.Entities
 {
 	public class Lot
 	{
+        public string[] Photos { get; set; }
 		public string Description { get; set; }
 	}
 }

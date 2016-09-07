@@ -11,17 +11,17 @@ namespace BLL
 {
 	public class TestWriter: ITestWriter
 	{
-		private readonly ILotRepository _lotRepository;
+		private readonly IRepositoryFactory _repositoryFactory;
 
-		public TestWriter(ILotRepository lotRepository)
+		public TestWriter(IRepositoryFactory repositoryFactory)
 		{
-			_lotRepository = lotRepository;
+			_repositoryFactory = repositoryFactory;
 		}
 
 		public bool GetSomeMessage(string mess)
 		{
 			var gettingMess = mess;
-			_lotRepository.AddLot(new Lot {Description = mess});
+			_repositoryFactory.LotRepository.AddLot(new Lot {Description = mess});
 			return true;
 		}
 	}

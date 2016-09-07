@@ -14,8 +14,9 @@ namespace MvcUI.Infrastructure
 	{
 		public override void Load()
 		{
-			Bind<ILotRepository>().To<WrongLotRepo>();
+			//Bind<ILotRepository>().To<WrongLotRepo>();
 			Bind<ITestWriter>().To<TestWriter>();
+		    Bind<IRepositoryFactory>().To<RepositoryFactory>();
 		}
 	}
 }

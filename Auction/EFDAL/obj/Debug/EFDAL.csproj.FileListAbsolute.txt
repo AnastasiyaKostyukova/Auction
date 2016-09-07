@@ -5,3 +5,18 @@ D:\Training EPAM Nastya\Auction\EFDAL\obj\Debug\EFDAL.pdb
 D:\Training EPAM Nastya\Auction\EFDAL\bin\Debug\DAL.Interface.dll
 D:\Training EPAM Nastya\Auction\EFDAL\bin\Debug\DAL.Interface.pdb
 D:\Training EPAM Nastya\Auction\EFDAL\obj\Debug\EFDAL.csprojResolveAssemblyReference.cache
+D:\Training EPAM Nastya\My finish PROJECT\Auction\EFDAL\obj\Debug\EFDAL.csprojResolveAssemblyReference.cache
+D:\Training EPAM Nastya\My finish PROJECT\Auction\EFDAL\obj\Debug\EFDAL.dll
+D:\Training EPAM Nastya\My finish PROJECT\Auction\EFDAL\obj\Debug\EFDAL.pdb
+D:\Training EPAM Nastya\My finish PROJECT\Auction\EFDAL\bin\Debug\EFDAL.dll.config
+D:\Training EPAM Nastya\My finish PROJECT\Auction\EFDAL\bin\Debug\EFDAL.dll
+D:\Training EPAM Nastya\My finish PROJECT\Auction\EFDAL\bin\Debug\EFDAL.pdb
+D:\Training EPAM Nastya\My finish PROJECT\Auction\EFDAL\bin\Debug\DAL.Interface.dll
+D:\Training EPAM Nastya\My finish PROJECT\Auction\EFDAL\bin\Debug\EntityFramework.dll
+D:\Training EPAM Nastya\My finish PROJECT\Auction\EFDAL\bin\Debug\EntityFramework.SqlServer.dll
+D:\Training EPAM Nastya\My finish PROJECT\Auction\EFDAL\bin\Debug\EntityFramework.SqlServerCompact.dll
+D:\Training EPAM Nastya\My finish PROJECT\Auction\EFDAL\bin\Debug\System.Data.SqlServerCe.dll
+D:\Training EPAM Nastya\My finish PROJECT\Auction\EFDAL\bin\Debug\DAL.Interface.pdb
+D:\Training EPAM Nastya\My finish PROJECT\Auction\EFDAL\bin\Debug\EntityFramework.xml
+D:\Training EPAM Nastya\My finish PROJECT\Auction\EFDAL\bin\Debug\EntityFramework.SqlServer.xml
+D:\Training EPAM Nastya\My finish PROJECT\Auction\EFDAL\bin\Debug\EntityFramework.SqlServerCompact.xml

@@ -9,6 +9,7 @@ namespace DAL.Interface.Repositories
 {
 	public interface ILotRepository
 	{
+        // #todo CRUD function
 		bool AddLot(Lot lot);
 	}
 }
