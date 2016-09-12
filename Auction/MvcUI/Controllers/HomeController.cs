@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using DAL.Interface.Repositories;
 using BLL.Interface;
 
@@ -31,16 +32,15 @@ namespace MvcUI.Controllers
 
 		public ActionResult About()
 		{
-			ViewBag.Message = "Your application description page.";
+			ViewBag.Message = "ART Auction is a resource where contemporary artists can exhibit their own work.";
 
 			return View();
 		}
 
-		public ActionResult Contact()
-		{
-			ViewBag.Message = "Your contact page.";
-
-			return View();
-		}
-	}
+        [Authorize(Roles = "admin")]
+        public ActionResult UsersEdit()
+        {
+            return View();
+        }
+    }
 }

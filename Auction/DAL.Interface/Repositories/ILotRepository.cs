@@ -10,6 +10,11 @@ namespace DAL.Interface.Repositories
 	public interface ILotRepository
 	{
         // #todo CRUD function
-		bool AddLot(Lot lot);
-	}
+		void CreateLot(Lot lot);
+	    void DeleteLot(Lot lot);
+
+	    IEnumerable<Lot> GetAllLots();
+	    IEnumerable<Lot> GetAllLotsOfUser(int sellerId);
+        Lot GetLotById(int id);
+    }
 }

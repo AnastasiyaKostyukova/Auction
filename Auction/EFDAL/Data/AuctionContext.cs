@@ -12,9 +12,11 @@ namespace EFDAL.Data
 	{
 	    public AuctionContext() : base("AuctionContext")
 	    {
-	    }
+            Database.SetInitializer(new AuctionContextInitializer());
+        }
 
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<Lot> Lots { get; set; }
     }
 }

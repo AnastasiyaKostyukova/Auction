@@ -1,0 +1,32 @@
+﻿@using BLL.Interface.Models
+@model List<BLLLot>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <div>
+        <fieldset>
+            <legend>Show all lots:</legend>
+            @foreach (BLLLot lot in Model)
+            {
+                <dl>
+                    <dt>Name: @Html.ActionLink(lot.ArtworkName, "Lot", "LotManager", new { id = lot.Id}, null)</dt>
+                    <dt>Author of image: @lot.Author</dt><dd>@lot.Author</dd>
+                    <dt>Artwork format: @lot.ArtworkFormat</dt>
+                    <dt>Starting price: @lot.StartingPrice</dt>
+                </dl>
+                <br/>
+            }
+            <p>
+                <input type="submit" value="Create new lot" />
+            </p>
+        </fieldset>
+    </div>
+}

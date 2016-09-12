@@ -12,6 +12,7 @@ namespace DAL.Interface.Repositories
         IEnumerable<User> GetAllUsers();
         bool CreateUser(User user);
         User GetUserByEmail(string email);
+        User GetUserById(int id);
         bool UpdateUser(User user);
         bool RemoveUser(int id);
     }

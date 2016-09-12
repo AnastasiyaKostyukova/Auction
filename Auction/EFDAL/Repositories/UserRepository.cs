@@ -20,27 +20,55 @@ namespace EFDAL.Repositories
 
         public bool CreateUser(User user)
         {
-            throw new NotImplementedException();
+            _auctionContext.Users.Add(user);
+            _auctionContext.SaveChanges();
+            return true;
         }
 
         public IEnumerable<User> GetAllUsers()
         {
-            throw new NotImplementedException();
+            return _auctionContext.Users.ToList();
         }
 
         public User GetUserByEmail(string email)
         {
-            throw new NotImplementedException();
+            return _auctionContext.Users
+                .FirstOrDefault(u => u.Email.ToLower() == email.ToLower());
+        }
+
+        public User GetUserById(int id)
+        {
+            return _auctionContext.Users.FirstOrDefault(u => u.Id == id);
         }
 
         public bool RemoveUser(int id)
         {
-            throw new NotImplementedException();
+            var user = GetUserById(id);
+            if (user == null)
+            {
+                return false;
+            }
+
+            _auctionContext.Users.Remove(user);
+            return true;
         }
 
-        public bool UpdateUser(User user)
+        public bool UpdateUser(User updatedUser)
         {
-            throw new NotImplementedException();
+            var user = GetUserById(updatedUser.Id);
+
+            if (user == null)
+            {
+                return false;
+            }
+
+            user.UserName = updatedUser.UserName;
+            user.Password = updatedUser.Password;
+            user.Email = updatedUser.Email;
+            user.CreationDate = updatedUser.CreationDate;
+            user.RoleId = updatedUser.RoleId;
+
+            return true;
         }
     }
 }

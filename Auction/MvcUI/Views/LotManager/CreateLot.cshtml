@@ -1,0 +1,95 @@
+﻿@using MvcUI.ViewModels
+@model LotViewModel
+@{
+    ViewBag.Title = "CreateLot";
+}
+
+<h2>CreateLot</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <div>
+        <fieldset>
+            <legend>Creating new lot:</legend>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.ArtworkName)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.ArtworkName)
+                @Html.ValidationMessageFor(m => m.ArtworkName)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Author)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.Author)
+                @Html.ValidationMessageFor(m => m.Author)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Photos)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.Photos)
+                @Html.ValidationMessageFor(m => m.Photos)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.ArtworkFormat)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.ArtworkFormat)
+                @Html.ValidationMessageFor(m => m.ArtworkFormat)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.YearOfCreation)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.YearOfCreation)
+                @Html.ValidationMessageFor(m => m.YearOfCreation)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Description)
+            </div>
+            <div class="editor-field">
+                @Html.TextAreaFor(m => m.Description)
+                @Html.ValidationMessageFor(m => m.Description)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.StartingPrice)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.StartingPrice)
+                @Html.ValidationMessageFor(m => m.StartingPrice)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.MinimalStepRate)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.MinimalStepRate)
+                @Html.ValidationMessageFor(m => m.MinimalStepRate)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.DateOfAuction)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.DateOfAuction)
+                @Html.ValidationMessageFor(m => m.DateOfAuction)
+            </div>
+
+            <p>
+                <input type="submit" value="Create new lot" />
+            </p>
+        </fieldset>
+    </div>
+}

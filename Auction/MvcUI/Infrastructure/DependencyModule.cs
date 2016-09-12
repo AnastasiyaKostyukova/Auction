@@ -7,6 +7,8 @@ using Ninject.Modules;
 using DAL.Interface.Repositories;
 using EFDAL.Repositories;
 using BLL;
+using BLL.Interface.Services;
+using BLL.Services;
 
 namespace MvcUI.Infrastructure
 {
@@ -14,9 +16,10 @@ namespace MvcUI.Infrastructure
 	{
 		public override void Load()
 		{
-			//Bind<ILotRepository>().To<WrongLotRepo>();
 			Bind<ITestWriter>().To<TestWriter>();
-		    Bind<IRepositoryFactory>().To<RepositoryFactory>();
-		}
+            Bind<ICRUDLotService>().To<CRUDLotService>();
+            Bind<ICRUDUserService>().To<CRUDUserService>();
+            Bind<IRepositoryFactory>().To<RepositoryFactory>();
+        }
 	}
 }

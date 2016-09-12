@@ -17,11 +17,32 @@ namespace EFDAL.Repositories
         {
             _auctionContext = auctionContext;
         }
-        public bool AddLot(Lot lot)
-		{
-			var myLot = lot;
 
-			return true;
-		}
-	}
+	    public void CreateLot(Lot lot)
+	    {
+	        _auctionContext.Lots.Add(lot);
+	        _auctionContext.SaveChanges();
+	    }
+
+	    public void DeleteLot(Lot lot)
+	    {
+	        _auctionContext.Lots.Remove(lot);
+	        _auctionContext.SaveChanges();
+	    }
+
+	    public IEnumerable<Lot> GetAllLots()
+	    {
+	        return _auctionContext.Lots.ToList();
+	    }
+
+	    public IEnumerable<Lot> GetAllLotsOfUser(int sellerId)
+	    {
+	        return GetAllLots().Where(l => l.SellerId == sellerId);
+	    }
+
+        public Lot GetLotById(int id)
+        {
+            return _auctionContext.Lots.FirstOrDefault(l => l.Id == id);
+        }
+    }
 }

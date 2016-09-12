@@ -1,0 +1,25 @@
+﻿@using BLL.Interface.Models
+@model BLLLot
+@{
+    ViewBag.Title = "Lot";
+}
+
+<h2>Show Lot</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <div>
+        <fieldset>
+            <legend>Show lot:</legend>
+                <dl>
+                    <dt>Name: @Model.ArtworkName</dt>
+                    <dt>Author of image: @Model.Author</dt>
+                    <dd>@Model.Author</dd>
+                    <dt>Artwork format: @Model.ArtworkFormat</dt>
+                    <dt>Starting price: @Model.StartingPrice</dt>
+                </dl>
+        </fieldset>
+    </div>
+}
