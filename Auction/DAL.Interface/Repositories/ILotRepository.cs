@@ -9,8 +9,7 @@ namespace DAL.Interface.Repositories
 {
 	public interface ILotRepository
 	{
-        // #todo CRUD function
-		void CreateLot(Lot lot);
+		void CreateLot(Lot lot, int userId);
 	    void DeleteLot(Lot lot);
 
 	    IEnumerable<Lot> GetAllLots();

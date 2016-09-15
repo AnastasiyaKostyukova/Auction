@@ -1,57 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc.Html;
+using BLL.Interface.Models;
 
 namespace MvcUI.ViewModels
 {
-    public class LotViewModel
+    public class LotViewModel : BLLLot
     {
-        [Required]
-        [Display(Name = "Name of Artwork")]
-        public string ArtworkName { get; set; }
+        public LotViewModel(BLLLot lot)
+        {
+            Id = lot.Id;
+            Photos = lot.Photos;
+            Author = lot.Author;
+            UsersLotsOwnerId = lot.UsersLotsOwnerId;
+            ArtworkFormat = lot.ArtworkFormat;
+            CurrentBuyerId = lot.CurrentBuyerId;
+            CurrentPrice = lot.CurrentPrice;
+            DateOfAuction = lot.DateOfAuction;
+            Description = lot.Description;
+            MinimalStepRate = lot.MinimalStepRate;
+            RatesCount = lot.RatesCount;
+            StartingPrice = lot.StartingPrice;
+            YearOfCreation = lot.YearOfCreation;
+            ArtworkName = lot.ArtworkName;
+            UsersLotsRates = lot.UsersLotsRates;
+            UsersLotsOwner = lot.UsersLotsOwner;
+        }
 
-        [Required]
-        [Display(Name = "Description")]
-        [MaxLength(100, ErrorMessage = "Your description should not contain more than 100 characters.")]
-        public string Description { get; set; }
-
-        [Required]
-        [Display(Name = "Photos")]
-        public string Photos { get; set; }
-
-        [Required]
-        [Display(Name = "Author")]
-        public string Author { get; set; }
-
-        [Required]
-        [Display(Name = "Artwork Format")]
-        public string ArtworkFormat { get; set; }
-
-        [Required]
-        [Display(Name = "Year Of Creation")]
-        public uint YearOfCreation { get; set; }
-
-        [Required]
-        [Display(Name = "Starting Price")]
-        public decimal StartingPrice { get; set; }
-
-        [Required]
-        [Display(Name = "Minimal Step Rate")]
-        public decimal MinimalStepRate { get; set; }
-
-        [Required]
-        [Display(Name = "Date of the end of the auction")]
-        public DateTime DateOfAuction { get; set; }
-
-        public int Id { get; set; }
-        public int SellerId { get; set; }
-        public decimal CurrentPrice { get; set; }
-        public int CurrentBuyerId { get; set; }
-        public uint RatesCount { get; set; }
-
-
+        public int CurrentUserId { get; set; }
     }
 }

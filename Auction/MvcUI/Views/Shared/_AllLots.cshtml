@@ -1,0 +1,49 @@
+﻿@using BLL.Interface.Models
+
+@model MvcUI.ViewModels.LotsViewModel
+
+<div>
+
+    @foreach (BLLLot lot in Model.Lots)
+    {
+        <fieldset>
+            <dl>
+                <dt>Name: @lot.ArtworkName</dt>
+                <dt>Author of image: @lot.Author</dt>
+                <dt>Artwork format: @lot.ArtworkFormat</dt>
+                <dt>Starting price: @lot.StartingPrice</dt>
+                <dt>@Html.ActionLink("View details", "Lot", "LotManager", new { id = lot.Id }, null)</dt>
+            </dl>
+            <br/>
+        </fieldset>
+    }
+
+</div>
+<div>
+    <button id="goToFirstPage" onclick="openPage('1')">
+        First
+    </button>
+
+    <button id="goToPage1" onclick="numericButtonsOfPagePressed('goToPage1')">
+        1
+    </button>
+
+    <button id="goToPage2" onclick="numericButtonsOfPagePressed('goToPage2')">
+        2
+    </button>
+
+    <button id="goToPage3" onclick="numericButtonsOfPagePressed('goToPage3')">
+        3
+    </button>
+
+    <button id="goToLastPage" onclick="openPage('@Model.MaxPageNumber')">
+        Last
+    </button>
+</div>
+
+<script type="text/javascript">
+    var currentPageNumber = @Model.PageNumber;
+    var maxPage = @Model.MaxPageNumber;
+
+    renderPageButtons(currentPageNumber, maxPage);
+</script>

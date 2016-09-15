@@ -17,7 +17,7 @@ namespace BLL.Mappers
                 Id = lot.Id,
                 Photos = lot.Photos,
                 Author = lot.Author,
-                SellerId = lot.SellerId,
+                UsersLotsOwnerId = lot.UsersLotsOwnerId.GetValueOrDefault(),
                 ArtworkFormat = lot.ArtworkFormat,
                 CurrentBuyerId = lot.CurrentBuyerId,
                 CurrentPrice = lot.CurrentPrice,
@@ -27,7 +27,9 @@ namespace BLL.Mappers
                 RatesCount = lot.RatesCount,
                 StartingPrice = lot.StartingPrice,
                 YearOfCreation = lot.YearOfCreation,
-                ArtworkName = lot.ArtworkName
+                ArtworkName = lot.ArtworkName,
+                UsersLotsRates = lot.UsersLotsRates.ToList(),
+                UsersLotsOwner = lot.UsersLotsOwner
             };
         }
 
@@ -38,7 +40,7 @@ namespace BLL.Mappers
                 Id = lot.Id,
                 Photos = lot.Photos,
                 Author = lot.Author,
-                SellerId = lot.SellerId,
+                UsersLotsOwnerId = lot.UsersLotsOwnerId,
                 ArtworkFormat = lot.ArtworkFormat,
                 CurrentBuyerId = lot.CurrentBuyerId,
                 CurrentPrice = lot.CurrentPrice,
@@ -51,6 +53,5 @@ namespace BLL.Mappers
                 ArtworkName = lot.ArtworkName
             };
         }
-
     }
 }

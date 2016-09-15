@@ -16,7 +16,7 @@ namespace MvcUI.Infrastructure
 	{
 		public override void Load()
 		{
-			Bind<ITestWriter>().To<TestWriter>();
+			//Bind<ITestWriter>().To<TestWriter>();
             Bind<ICRUDLotService>().To<CRUDLotService>();
             Bind<ICRUDUserService>().To<CRUDUserService>();
             Bind<IRepositoryFactory>().To<RepositoryFactory>();

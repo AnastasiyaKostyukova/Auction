@@ -9,7 +9,7 @@ namespace DAL.Interface.Entities
 	public class Lot
 	{
         public int Id { get; set; }
-	    public int SellerId { get; set; }
+	    public int? UsersLotsOwnerId { get; set; }
         public string ArtworkName { get; set; }
 	    public string Photos { get; set; }
         public string Author { get; set; }
@@ -22,5 +22,8 @@ namespace DAL.Interface.Entities
         public decimal CurrentPrice { get; set; }
         public int CurrentBuyerId { get; set; }
         public uint RatesCount { get; set; }
+
+        public virtual UsersLotsOwner UsersLotsOwner { get; set; } 
+        public virtual ICollection<UsersLotsRate> UsersLotsRates { get; set; }
     }
 }

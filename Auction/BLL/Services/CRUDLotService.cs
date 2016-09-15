@@ -19,10 +19,10 @@ namespace BLL.Services
             _repositoryFactory = repositoryFactory;
         }
 
-        public void CreateLot(BLLLot lot)
+        public void CreateLot(BLLLot lot, int userId)
         {
             var creatingLot = lot.ToLot();
-            _repositoryFactory.LotRepository.CreateLot(creatingLot);
+            _repositoryFactory.LotRepository.CreateLot(creatingLot, userId);
         }
 
         public void DeleteLot(BLLLot lot)
@@ -43,7 +43,20 @@ namespace BLL.Services
 
         public IEnumerable<BLLLot> GetAllLotsOfUser(int sellerId)
         {
-            throw new NotImplementedException();
+            var allLotsOfUser = _repositoryFactory.LotRepository.GetAllLotsOfUser(sellerId);
+            return allLotsOfUser.Select(l => l.ToBllLot());
+        }
+
+        public IEnumerable<BLLLot> GetAllLotsOfUser(string email)
+        {
+            var user = _repositoryFactory.UserRepository.GetUserByEmail(email);
+
+            if (user == null)
+            {
+                return new List<BLLLot>();
+            }
+
+            return GetAllLotsOfUser(user.Id);
         }
     }
 }

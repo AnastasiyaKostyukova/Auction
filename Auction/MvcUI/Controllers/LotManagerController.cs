@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using BLL.Interface.Models;
 using BLL.Interface.Services;
 using DAL.Interface.Repositories;
+using MvcUI.Services;
 using MvcUI.ViewModels;
 
 namespace MvcUI.Controllers
@@ -13,6 +14,7 @@ namespace MvcUI.Controllers
     [Authorize]
     public class LotManagerController : Controller
     {
+        private readonly LotManagerService _lotManagerService;
         private readonly ICRUDLotService _crudLotService;
         private readonly ICRUDUserService _crudUserService;
 
@@ -22,18 +24,38 @@ namespace MvcUI.Controllers
         {
             _crudLotService = crudLotService;
             _crudUserService = crudUserService;
+            _lotManagerService = new LotManagerService(_crudLotService, _crudUserService);
         }
 
-        public ActionResult Index()
+
+        public ActionResult Index(LotsRequestModel lotsRequest)
         {
-            var allLots = _crudLotService.GetAllLots().ToList();
-            return View(allLots);
+            return View(new LotsViewModel());
+        }
+
+        public ActionResult Lots(LotsRequestModel lotsRequest)
+        {
+            if (lotsRequest.PageNumber == 0)
+            {
+                lotsRequest.PageNumber = 1;
+            }
+
+            lotsRequest.LotsCountOnPage = 10;
+
+            var lots = _lotManagerService.GetLotsByTabName(lotsRequest.Tab, User.Identity.Name);
+
+            var model = _lotManagerService.BuildPagingModel(lots, lotsRequest);
+
+            return PartialView("_AllLots", model);
         }
 
         public ActionResult Lot(int id)
         {
             var lot = _crudLotService.GetLotById(id);
-            return View(lot);
+            var lotView = new LotViewModel(lot);
+            var emailOfCurUser = User.Identity.Name;
+            lotView.CurrentUserId = _crudUserService.GetUserByEmail(emailOfCurUser).Id;
+            return View(lotView);
         }
 
         public ActionResult CreateLot()
@@ -42,11 +64,12 @@ namespace MvcUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateLot(LotViewModel newLot)
+        public ActionResult CreateLot(LotCreateModel newLot)
         {
             if (ModelState.IsValid)
             {
-                var sellerOfLot = _crudUserService.GetUserByEmail(User.Identity.Name);
+                var user = _crudUserService.GetUserByEmail(User.Identity.Name);
+
                 var createdLot = new BLLLot
                 {
                     ArtworkName = newLot.ArtworkName,
@@ -58,10 +81,10 @@ namespace MvcUI.Controllers
                     StartingPrice = newLot.StartingPrice,
                     MinimalStepRate = newLot.MinimalStepRate,
                     DateOfAuction = newLot.DateOfAuction,
-                    SellerId = sellerOfLot.Id,
                     CurrentPrice = newLot.StartingPrice
                 };
-                _crudLotService.CreateLot(createdLot);
+
+                _crudLotService.CreateLot(createdLot, user.Id);
                 return RedirectToAction("Index", "Home");
             }
 

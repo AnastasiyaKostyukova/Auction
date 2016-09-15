@@ -11,12 +11,6 @@ namespace MvcUI.Controllers
 {
 	public class HomeController : Controller
 	{
-		private readonly ITestWriter _testWriter;
-
-		public HomeController(ITestWriter testWriter)
-		{
-			this._testWriter = testWriter;
-		}
 
 		public ActionResult Index()
 		{
@@ -26,7 +20,6 @@ namespace MvcUI.Controllers
 		[HttpPost]
 		public ActionResult Index(string str)
 		{
-			_testWriter.GetSomeMessage(str);
 			return RedirectToAction("Index");
 		}
 

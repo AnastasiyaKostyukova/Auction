@@ -1,25 +1,28 @@
-﻿@using BLL.Interface.Models
-@model BLLLot
+﻿@using MvcUI.ViewModels
+@model LotViewModel
 @{
     ViewBag.Title = "Lot";
 }
 
 <h2>Show Lot</h2>
 
-@using (Html.BeginForm())
-{
-    @Html.ValidationSummary(true)
+<div>
+    <fieldset>
+        <legend>Show lot:</legend>
+        <dl>
+            <dt>Photo: @Model.Photos</dt>
+            <dt>Name: @Model.ArtworkName</dt>
+            <dt>Author of image: @Model.Author</dt>
+            <dt>Artwork format: @Model.ArtworkFormat</dt>
+            <dt>Starting price: @Model.StartingPrice</dt>
+            <dt>Description: @Model.Description</dt>
+            <dt>Current Price: @Model.CurrentPrice</dt>
+            <dt>Date Of finish of Auction: @Model.DateOfAuction</dt>
+        </dl>
 
-    <div>
-        <fieldset>
-            <legend>Show lot:</legend>
-                <dl>
-                    <dt>Name: @Model.ArtworkName</dt>
-                    <dt>Author of image: @Model.Author</dt>
-                    <dd>@Model.Author</dd>
-                    <dt>Artwork format: @Model.ArtworkFormat</dt>
-                    <dt>Starting price: @Model.StartingPrice</dt>
-                </dl>
-        </fieldset>
-    </div>
-}
+        @if (Model.UsersLotsOwner?.UserId != Model.CurrentUserId)
+        {
+            <button id="myRatesLotsButton" onclick="openTab(MY_RATES_LOTS)">Make rate</button>
+        }
+    </fieldset>
+</div>

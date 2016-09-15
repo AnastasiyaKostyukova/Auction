@@ -1,32 +1,52 @@
 ﻿@using BLL.Interface.Models
-@model List<BLLLot>
+@using MvcUI.ViewModels
+@model LotsViewModel
 @{
     ViewBag.Title = "Index";
 }
 
+<script type="text/javascript">
+    var LOT_ACTION_URL = '@Url.Action("Lots")';
+    var ALL_LOTS = 'all_lots';
+    var MY_LOTS = 'my_lots';
+    var MY_RATES_LOTS = 'my_rates_lots';
+</script>
+
+<script src="@Url.Content("~/Scripts/LotManager/LotManager.js")"></script>
+
 <h2>Index</h2>
 
+<body>
+<div>
+    <div class="col-md-4" style="background-color: yellow">
+        А тут будут категории, по которым можно будет отбирать лоты:<br /><br />
 
-@using (Html.BeginForm())
-{
-    @Html.ValidationSummary(true)
+        <p>
+            <b>Search by author artwork:</b><br />
+            <input type="text" size="25"><br /><br />
 
-    <div>
-        <fieldset>
-            <legend>Show all lots:</legend>
-            @foreach (BLLLot lot in Model)
-            {
-                <dl>
-                    <dt>Name: @Html.ActionLink(lot.ArtworkName, "Lot", "LotManager", new { id = lot.Id}, null)</dt>
-                    <dt>Author of image: @lot.Author</dt><dd>@lot.Author</dd>
-                    <dt>Artwork format: @lot.ArtworkFormat</dt>
-                    <dt>Starting price: @lot.StartingPrice</dt>
-                </dl>
-                <br/>
-            }
-            <p>
-                <input type="submit" value="Create new lot" />
-            </p>
-        </fieldset>
+            <b>price ot i do</b><br />
+            <input type="text" size="10" style="margin-right: 10px;"><input type="text" size="10"><br /><br />
+            
     </div>
-}
+    <div class="col-md-8" style="background-color: wheat">
+
+        <button id="allLotsButton" onclick="openTab(ALL_LOTS)">All lots</button>
+        <button id="myLotsButton" onclick="openTab(MY_LOTS)">My lots</button>
+        <button id="myRatesLotsButton" onclick="openTab(MY_RATES_LOTS)">My rates</button>
+
+        <div id="lotList">
+            @{
+                Html.RenderAction("Lots");
+            }
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+
+
+
+
