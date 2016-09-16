@@ -3,8 +3,32 @@
 @{
     ViewBag.Title = "CreateLot";
 }
-
 <h2>CreateLot</h2>
+
+
+@*<div>
+    <div class="well">
+        <div id="datetimepicker1" class="input-append date">
+            <input data-format="MM/dd/yyyy HH:mm:ss PP" type="text"/>
+            <span class="add-on">
+                <span class="glyphicon glyphicon-calendar"></span>
+                <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+                </i>
+            </span>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function() {
+            $('#datetimepicker1').datetimepicker({
+                language: 'en',
+                format: 'dd/MM/yyyy hh:mm:ss',
+                pickTime: true,
+                //pickDate: false
+            });
+        });
+    </script>
+
+</div>*@
 
 
 @using (Html.BeginForm())
@@ -79,13 +103,14 @@
                 @Html.ValidationMessageFor(m => m.MinimalStepRate)
             </div>
 
-            <div class="editor-label">
-                @Html.LabelFor(m => m.DateOfAuction)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(m => m.DateOfAuction)
-                @Html.ValidationMessageFor(m => m.DateOfAuction)
-            </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(m => m.DateOfAuction)
+        </div>
+                @*@Html.EditorFor(m => m.DateOfAuction)
+                @Html.ValidationMessageFor(m => m.DateOfAuction)*@
+                @Html.TextBoxFor(model => model.DateOfAuction , new { type = "datetime-local" })
+            <br/><br /><br /><br />
 
             <p>
                 <input type="submit" value="Create new lot" />

@@ -18,32 +18,14 @@ namespace EFDAL.Repositories
             _auctionContext = auctionContext;
         }
 
-	    public void CreateLot(Lot lot, int userId)
+	    public void CreateLot(Lot lot)
 	    {
-	        var ulo = new UsersLotsOwner()
-	        {
-                UserId = userId
-            };
-
-            // Save because we need a ulo ID
-	        var savedUlo = _auctionContext.UsersLotsOwners.Add(ulo);
-            _auctionContext.SaveChanges();
-
-            // Save because we need lot ID
-            lot.UsersLotsOwnerId = savedUlo.Id;
-	        lot = _auctionContext.Lots.Add(lot);
+	        _auctionContext.Lots.Add(lot);
 	        _auctionContext.SaveChanges();
-
-            // Update lot Id 
-	        savedUlo.LotId = lot.Id;
-            _auctionContext.SaveChanges();
         }
 
 	    public void DeleteLot(Lot lot)
 	    {
-	        //var ulo = _auctionContext.UsersLotsOwners.Where(l => l.LotId == lot.Id);
-	        //_auctionContext.UsersLotsOwners.Remove(ulo);
-
 	        _auctionContext.Lots.Remove(lot);
 	        _auctionContext.SaveChanges();
 	    }
@@ -56,12 +38,32 @@ namespace EFDAL.Repositories
 
 	    public IEnumerable<Lot> GetAllLotsOfUser(int sellerId)
 	    {
-	        return GetAllLots().Where(l => l.UsersLotsOwnerId == sellerId);
+	        return GetAllLots().Where(l => l.UserId == sellerId);
 	    }
 
         public Lot GetLotById(int id)
         {
             return _auctionContext.Lots.FirstOrDefault(l => l.Id == id);
         }
+
+	    public void MakeRate(int lotId, int userId, decimal newPrice)
+	    {
+	        if (_auctionContext.UsersLotsRates.Any(r => r.UserId == userId && r.LotId == lotId) == false)
+	        {
+                var ulr = new UsersLotsRate()
+                {
+                    LotId = lotId,
+                    UserId = userId
+                };
+
+                _auctionContext.UsersLotsRates.Add(ulr);
+            }
+
+	        var lot = _auctionContext.Lots.FirstOrDefault(l => l.Id == lotId);
+	        lot.CurrentBuyerId = userId;
+	        lot.CurrentPrice = newPrice;
+	        lot.RatesCount++;
+	        _auctionContext.SaveChanges();
+	    }
     }
 }

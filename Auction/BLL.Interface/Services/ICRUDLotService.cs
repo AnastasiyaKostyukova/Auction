@@ -6,7 +6,7 @@ namespace BLL.Interface.Services
 {
     public interface ICRUDLotService
     {
-        void CreateLot(BLLLot lot, int userId);
+        void CreateLot(BLLLot lot);
         void DeleteLot(BLLLot lot);
 
         IEnumerable<BLLLot> GetAllLots();

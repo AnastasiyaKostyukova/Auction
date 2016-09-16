@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using BLL.Interface.Models;
@@ -8,12 +9,16 @@ namespace MvcUI.ViewModels
 {
     public class LotViewModel : BLLLot
     {
+        public LotViewModel()
+        {
+        }
+
         public LotViewModel(BLLLot lot)
         {
             Id = lot.Id;
             Photos = lot.Photos;
             Author = lot.Author;
-            UsersLotsOwnerId = lot.UsersLotsOwnerId;
+            UserOwnerId = lot.UserOwnerId;
             ArtworkFormat = lot.ArtworkFormat;
             CurrentBuyerId = lot.CurrentBuyerId;
             CurrentPrice = lot.CurrentPrice;
@@ -25,9 +30,12 @@ namespace MvcUI.ViewModels
             YearOfCreation = lot.YearOfCreation;
             ArtworkName = lot.ArtworkName;
             UsersLotsRates = lot.UsersLotsRates;
-            UsersLotsOwner = lot.UsersLotsOwner;
         }
 
         public int CurrentUserId { get; set; }
+
+        [Required]
+        [Display(Name = "Price Rate..")]
+        public string PriceRate { get; set; }
     }
 }

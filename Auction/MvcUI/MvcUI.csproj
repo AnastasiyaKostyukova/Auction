@@ -190,6 +190,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\loadingImages\760.gif" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -201,7 +202,9 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\LotManager\LotManager.js" />
+    <Content Include="Scripts\LotManager\MakeRate.js" />
+    <Content Include="Scripts\LotManager\ViewLots.js" />
+    <Content Include="Scripts\moment.js" />
     <Content Include="Views\Home\UsersEdit.cshtml" />
     <Content Include="Views\LotManager\CreateLot.cshtml" />
     <Content Include="Views\LotManager\Index.cshtml" />

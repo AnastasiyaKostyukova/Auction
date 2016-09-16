@@ -32,9 +32,9 @@ namespace MvcUI.Services
             }
             else if (tabName == TabNameMyRates)
             {
-                var userBuyerId = _crudUserService.GetUserByEmail(currentUserEmail).Id;
+                var userId = _crudUserService.GetUserByEmail(currentUserEmail).Id;
                 lots = _crudLotService.GetAllLots()
-                    .Where(l => l.CurrentBuyerId == userBuyerId).ToList();
+                    .Where(l => l.UsersLotsRates.Any(ulr => ulr.UserId == userId)).ToList();
             }
             else
             {
@@ -44,7 +44,7 @@ namespace MvcUI.Services
             return lots;
         }
 
-        public LotsViewModel BuildPagingModel(List<BLLLot> lots, LotsRequestModel lotsRequest)
+        public LotsViewModel BuildPagingModel(List<BLLLot> lots, LotsRequestModel lotsRequest, string currentUserEmail)
         {
             var maxPageNumber = 1;
             if (lots.Count % lotsRequest.LotsCountOnPage != 0)
@@ -59,12 +59,17 @@ namespace MvcUI.Services
             var lotsAfterSkip = lots.Skip(lotsRequest.LotsCountOnPage * 
                 (lotsRequest.PageNumber - 1)).Take(lotsRequest.LotsCountOnPage);
 
+            var userId = _crudUserService.GetUserByEmail(currentUserEmail).Id;
+
             var model = new LotsViewModel
             {
                 Lots = lotsAfterSkip.ToList(),
                 PageNumber = lotsRequest.PageNumber,
-                MaxPageNumber = maxPageNumber
+                MaxPageNumber = maxPageNumber,
+                Tab = lotsRequest.Tab,
+                CurrentUserId = userId
             };
+
             return model;
         }
     }

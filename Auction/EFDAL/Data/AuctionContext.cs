@@ -19,6 +19,6 @@ namespace EFDAL.Data
         public DbSet<Role> Roles { get; set; }
         public DbSet<Lot> Lots { get; set; }
 
-        public DbSet<UsersLotsOwner> UsersLotsOwners { get; set; }
+        public DbSet<UsersLotsRate> UsersLotsRates { get; set; } 
     }
 }

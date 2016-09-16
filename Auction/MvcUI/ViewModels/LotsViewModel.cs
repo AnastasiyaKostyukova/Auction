@@ -18,5 +18,6 @@ namespace MvcUI.ViewModels
         public int PageNumber { get; set; }
 
         public int MaxPageNumber { get; set; }
+        public int CurrentUserId { get; set; }
     }
 }

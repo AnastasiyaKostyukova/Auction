@@ -5,14 +5,23 @@
     ViewBag.Title = "Index";
 }
 
-<script type="text/javascript">
-    var LOT_ACTION_URL = '@Url.Action("Lots")';
-    var ALL_LOTS = 'all_lots';
-    var MY_LOTS = 'my_lots';
-    var MY_RATES_LOTS = 'my_rates_lots';
-</script>
+<script src="@Url.Content("~/Scripts/LotManager/ViewLots.js")"></script>
 
-<script src="@Url.Content("~/Scripts/LotManager/LotManager.js")"></script>
+<script type="text/javascript">
+    var viewLotsObject = new viewLots();
+
+    viewLotsObject.LOT_ACTION_URL = '@Url.Action("Lots")';
+    viewLotsObject.ALL_LOTS = 'all_lots';
+    viewLotsObject.MY_LOTS = 'my_lots';
+    viewLotsObject.MY_RATES_LOTS = 'my_rates_lots';
+    viewLotsObject.loadingImage = '@Url.Content("~/content/loadingImages/760.gif")';
+
+    // page loaded
+    $(document).ready(function () {
+        viewLotsObject.currentTab = viewLotsObject.ALL_LOTS;
+        viewLotsObject.lightTab(viewLotsObject.ALL_LOTS);
+    });
+</script>
 
 <h2>Index</h2>
 
@@ -31,9 +40,20 @@
     </div>
     <div class="col-md-8" style="background-color: wheat">
 
-        <button id="allLotsButton" onclick="openTab(ALL_LOTS)">All lots</button>
-        <button id="myLotsButton" onclick="openTab(MY_LOTS)">My lots</button>
-        <button id="myRatesLotsButton" onclick="openTab(MY_RATES_LOTS)">My rates</button>
+        <button id="allLotsButton"
+                onclick="viewLotsObject.openTab(viewLotsObject.ALL_LOTS)">
+            All lots
+        </button>
+
+        <button id="myLotsButton"
+                onclick="viewLotsObject.openTab(viewLotsObject.MY_LOTS)">
+            My lots
+        </button>
+
+        <button id="myRatesLotsButton"
+                onclick="viewLotsObject.openTab(viewLotsObject.MY_RATES_LOTS)">
+            My rates
+        </button>
 
         <div id="lotList">
             @{

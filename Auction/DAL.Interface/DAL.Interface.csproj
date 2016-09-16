@@ -43,7 +43,6 @@
     <Compile Include="Entities\Lot.cs" />
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\User.cs" />
-    <Compile Include="Entities\UsersLotsOwner.cs" />
     <Compile Include="Entities\UsersLotsRate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ILotRepository.cs" />

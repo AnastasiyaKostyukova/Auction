@@ -19,10 +19,10 @@ namespace BLL.Services
             _repositoryFactory = repositoryFactory;
         }
 
-        public void CreateLot(BLLLot lot, int userId)
+        public void CreateLot(BLLLot lot)
         {
             var creatingLot = lot.ToLot();
-            _repositoryFactory.LotRepository.CreateLot(creatingLot, userId);
+            _repositoryFactory.LotRepository.CreateLot(creatingLot);
         }
 
         public void DeleteLot(BLLLot lot)

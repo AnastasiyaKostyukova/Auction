@@ -32,7 +32,7 @@ namespace MvcUI.ViewModels
 
         [Required]
         [Display(Name = "Year Of Creation")]
-        public uint YearOfCreation { get; set; }
+        public int YearOfCreation { get; set; }
 
         [Required]
         [Display(Name = "Starting Price")]
@@ -44,13 +44,14 @@ namespace MvcUI.ViewModels
 
         [Required]
         [Display(Name = "Date of the end of the auction")]
+        [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DateOfAuction { get; set; }
 
-        public int Id { get; set; }
-        public int SellerId { get; set; }
-        public decimal CurrentPrice { get; set; }
-        public int CurrentBuyerId { get; set; }
-        public uint RatesCount { get; set; }
+        //public int Id { get; set; }
+        //public int SellerId { get; set; }
+        //public decimal CurrentPrice { get; set; }
+        //public int CurrentBuyerId { get; set; }
+        //public int RatesCount { get; set; }
 
 
     }

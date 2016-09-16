@@ -6,7 +6,13 @@
 
     @foreach (BLLLot lot in Model.Lots)
     {
-        <fieldset>
+        var redStyle = "";
+        if (Model.Tab == "my_rates_lots" && lot.CurrentBuyerId != Model.CurrentUserId)
+        {
+            redStyle = "class=red-color";
+        }
+
+        <fieldset @redStyle>
             <dl>
                 <dt>Name: @lot.ArtworkName</dt>
                 <dt>Author of image: @lot.Author</dt>
@@ -20,23 +26,23 @@
 
 </div>
 <div>
-    <button id="goToFirstPage" onclick="openPage('1')">
+    <button id="goToFirstPage" onclick="viewLotsObject.openPage('1')">
         First
     </button>
 
-    <button id="goToPage1" onclick="numericButtonsOfPagePressed('goToPage1')">
+    <button id="goToPage1" onclick="viewLotsObject.numericButtonsOfPagePressed('goToPage1')">
         1
     </button>
 
-    <button id="goToPage2" onclick="numericButtonsOfPagePressed('goToPage2')">
+    <button id="goToPage2" onclick="viewLotsObject.numericButtonsOfPagePressed('goToPage2')">
         2
     </button>
 
-    <button id="goToPage3" onclick="numericButtonsOfPagePressed('goToPage3')">
+    <button id="goToPage3" onclick="viewLotsObject.numericButtonsOfPagePressed('goToPage3')">
         3
     </button>
 
-    <button id="goToLastPage" onclick="openPage('@Model.MaxPageNumber')">
+    <button id="goToLastPage" onclick="viewLotsObject.openPage('@Model.MaxPageNumber')">
         Last
     </button>
 </div>
@@ -45,5 +51,5 @@
     var currentPageNumber = @Model.PageNumber;
     var maxPage = @Model.MaxPageNumber;
 
-    renderPageButtons(currentPageNumber, maxPage);
+    viewLotsObject.renderPageButtons(currentPageNumber, maxPage);
 </script>

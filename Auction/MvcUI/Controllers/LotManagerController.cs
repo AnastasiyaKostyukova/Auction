@@ -17,19 +17,35 @@ namespace MvcUI.Controllers
         private readonly LotManagerService _lotManagerService;
         private readonly ICRUDLotService _crudLotService;
         private readonly ICRUDUserService _crudUserService;
+        private readonly ILotService _lotService;
 
         public LotManagerController(
             ICRUDLotService crudLotService,
-            ICRUDUserService crudUserService)
+            ICRUDUserService crudUserService,
+            ILotService lotService)
         {
             _crudLotService = crudLotService;
             _crudUserService = crudUserService;
+            _lotService = lotService;
             _lotManagerService = new LotManagerService(_crudLotService, _crudUserService);
         }
 
 
         public ActionResult Index(LotsRequestModel lotsRequest)
         {
+            //for (var i = 0; i < 57; i++)
+            //{
+            //    var bllLot = new BLLLot
+            //    {
+            //        ArtworkName = "Name_" + i,
+            //        DateOfAuction = DateTime.Now,
+            //        UserOwnerId = 1,
+            //        Author = "podlec"
+            //    };
+
+            //    _crudLotService.CreateLot(bllLot);
+            //}
+
             return View(new LotsViewModel());
         }
 
@@ -44,7 +60,7 @@ namespace MvcUI.Controllers
 
             var lots = _lotManagerService.GetLotsByTabName(lotsRequest.Tab, User.Identity.Name);
 
-            var model = _lotManagerService.BuildPagingModel(lots, lotsRequest);
+            var model = _lotManagerService.BuildPagingModel(lots, lotsRequest, User.Identity.Name);
 
             return PartialView("_AllLots", model);
         }
@@ -54,7 +70,10 @@ namespace MvcUI.Controllers
             var lot = _crudLotService.GetLotById(id);
             var lotView = new LotViewModel(lot);
             var emailOfCurUser = User.Identity.Name;
-            lotView.CurrentUserId = _crudUserService.GetUserByEmail(emailOfCurUser).Id;
+            var userId = _crudUserService.GetUserByEmail(emailOfCurUser).Id;
+            lotView.CurrentUserId = userId;
+
+            ViewBag.CanRate = userId != lot.UserOwnerId;
             return View(lotView);
         }
 
@@ -81,14 +100,37 @@ namespace MvcUI.Controllers
                     StartingPrice = newLot.StartingPrice,
                     MinimalStepRate = newLot.MinimalStepRate,
                     DateOfAuction = newLot.DateOfAuction,
-                    CurrentPrice = newLot.StartingPrice
+                    CurrentPrice = newLot.StartingPrice,
+                    UserOwnerId = user.Id
                 };
 
-                _crudLotService.CreateLot(createdLot, user.Id);
-                return RedirectToAction("Index", "Home");
+                _crudLotService.CreateLot(createdLot);
+                return RedirectToAction("Index", "LotManager");
             }
 
             return View(); 
+        }
+
+        [HttpPost]
+        public ActionResult Lot(LotViewModel lotView)
+        {
+            ViewBag.CanRate = true;
+            if (ModelState.IsValid == false)
+            {
+                return View("Lot", lotView);
+            }
+
+            decimal price;
+            if (decimal.TryParse(lotView.PriceRate, out price) == false)
+            {
+                ModelState.AddModelError("", "Price should be decimal");
+                return View("Lot", lotView);
+            }
+
+            //todo save
+            _lotService.MakeRate(lotView.Id, lotView.CurrentUserId, price);
+
+            return RedirectToAction("Index", "LotManager");
         }
     }
 }
