@@ -11,11 +11,11 @@
 
         // clear last search
         self.lastSearchQueryString = "";
+        self.clearFilter();
 
         var url = self.LOT_ACTION_URL;
         url += buildQueryString(tabName);
 
-        self.clearFilter();
         loadNewData(url);
 
         self.lightTab(tabName);
@@ -32,8 +32,6 @@
         var url = self.LOT_ACTION_URL;
         url += buildQueryString(self.currentTab, pageNumber);
         url += self.lastSearchQueryString;
-
-        console.log(url);
 
         loadNewData(url);
         $("html, body").animate({ scrollTop: 0 }, "slow");
@@ -107,6 +105,7 @@
     };
 
     function loadNewData(url) {
+        console.log(url);
         $('#lotList').html(buildLoadingImageTag());
         $('#lotList').load(url);
     }
@@ -127,7 +126,6 @@
             return queryString;
         }
 
-        //todo build search param
         var searchQueryString = '';
         var countLotsOnPage = $('#countLotsOnPage').val();
         if (countLotsOnPage) {
