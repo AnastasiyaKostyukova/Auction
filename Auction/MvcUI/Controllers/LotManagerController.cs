@@ -56,10 +56,17 @@ namespace MvcUI.Controllers
                 lotsRequest.PageNumber = 1;
             }
 
-            lotsRequest.LotsCountOnPage = 10;
-
             var lots = _lotManagerService.GetLotsByTabName(lotsRequest.Tab, User.Identity.Name);
 
+            var bllSearchModel = new BLLSearch
+            {
+                SearchByArtworkName = lotsRequest.ArtworkName,
+                SearchByPictureAuthor = lotsRequest.PictureAuthor,
+                SearchByMinPrice = lotsRequest.MinPrice,
+                SearchByMaxPrice = lotsRequest.MaxPrice,
+                OrderByAuctionDate = lotsRequest.OrderByAuctionDate
+            };
+            lots = _lotService.Search(bllSearchModel, lots).ToList();
             var model = _lotManagerService.BuildPagingModel(lots, lotsRequest, User.Identity.Name);
 
             return PartialView("_AllLots", model);
@@ -69,12 +76,37 @@ namespace MvcUI.Controllers
         {
             var lot = _crudLotService.GetLotById(id);
             var lotView = new LotViewModel(lot);
-            var emailOfCurUser = User.Identity.Name;
-            var userId = _crudUserService.GetUserByEmail(emailOfCurUser).Id;
-            lotView.CurrentUserId = userId;
+            var emailOfCurrentUser = User.Identity.Name;
+            var currentUserId = _crudUserService.GetUserByEmail(emailOfCurrentUser).Id;
+            lotView.CurrentUserId = currentUserId;
 
-            ViewBag.CanRate = userId != lot.UserOwnerId;
+            ViewBag.CanUpdate = lot.UserOwnerId == currentUserId && lot.LotIsFinishedAuction == false;
+            ViewBag.CanRate = currentUserId != lot.UserOwnerId && lot.LotIsFinishedAuction == false;
+            ViewBag.CanDelete = (currentUserId == lot.UserOwnerId && lot.LotIsFinishedAuction 
+                && lot.CurrentBuyerId == 0) || (currentUserId == lot.UserOwnerId 
+                && !lot.LotIsFinishedAuction);
             return View(lotView);
+        }
+
+        [HttpPost]
+        public ActionResult Lot(LotViewModel lotView)
+        {
+            ViewBag.CanRate = true;
+            if (ModelState.IsValid == false)
+            {
+                return View("Lot", lotView);
+            }
+
+            decimal price;
+            if (decimal.TryParse(lotView.PriceRate, out price) == false)
+            {
+                ModelState.AddModelError("", "Price should be decimal");
+                return View("Lot", lotView);
+            }
+
+            _lotService.MakeRate(lotView.Id, lotView.CurrentUserId, price);
+
+            return RedirectToAction("Index", "LotManager");
         }
 
         public ActionResult CreateLot()
@@ -85,8 +117,17 @@ namespace MvcUI.Controllers
         [HttpPost]
         public ActionResult CreateLot(LotCreateModel newLot)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid == false)
             {
+                return View();
+            }
+
+            if (newLot.DateOfAuction < DateTime.Now)
+            {
+                ModelState.AddModelError("", "Date Of auction should be in future");
+                return View();
+            }
+
                 var user = _crudUserService.GetUserByEmail(User.Identity.Name);
 
                 var createdLot = new BLLLot
@@ -106,31 +147,61 @@ namespace MvcUI.Controllers
 
                 _crudLotService.CreateLot(createdLot);
                 return RedirectToAction("Index", "LotManager");
-            }
+        }
 
-            return View(); 
+        public ActionResult UpdateLot(int id)
+        {
+            var bllLot = _crudLotService.GetLotById(id);
+            var lot = new LotUpdateModel()
+            {
+                Id = bllLot.Id,
+                ArtworkName = bllLot.ArtworkName,
+                Author = bllLot.Author,
+                Description = bllLot.Description,
+                Photos = bllLot.Photos,
+                StartingPrice = bllLot.StartingPrice,
+                YearOfCreation = bllLot.YearOfCreation,
+                MinimalStepRate = bllLot.MinimalStepRate,
+                DateOfAuction = bllLot.DateOfAuction,
+                ArtworkFormat = bllLot.ArtworkFormat,
+                UpdatingDateOfAuction = bllLot.DateOfAuction
+            };
+
+            return View(lot);
         }
 
         [HttpPost]
-        public ActionResult Lot(LotViewModel lotView)
+        public ActionResult UpdateLot(LotUpdateModel updatingLot)
         {
-            ViewBag.CanRate = true;
             if (ModelState.IsValid == false)
             {
-                return View("Lot", lotView);
+                return View(updatingLot);
             }
 
-            decimal price;
-            if (decimal.TryParse(lotView.PriceRate, out price) == false)
+            if (updatingLot.UpdatingDateOfAuction < updatingLot.DateOfAuction)
             {
-                ModelState.AddModelError("", "Price should be decimal");
-                return View("Lot", lotView);
+                ModelState.AddModelError("", "Updating date Of auction should be no earlier than already declared");
+                return View(updatingLot);
             }
 
-            //todo save
-            _lotService.MakeRate(lotView.Id, lotView.CurrentUserId, price);
+            var lotForUpdate = new BLLLot()
+            {
+                Id = updatingLot.Id,
+                DateOfAuction = updatingLot.UpdatingDateOfAuction,
+                Description = updatingLot.Description,
+                MinimalStepRate = updatingLot.MinimalStepRate
+            };
 
-            return RedirectToAction("Index", "LotManager");
+            _crudLotService.UpdateLot(lotForUpdate);
+
+            return RedirectToAction("Lot", "LotManager", new {id = updatingLot.Id});
+        }
+
+        [HttpPost]
+        public bool DeleteLot(int id)
+        {
+            _crudLotService.DeleteLot(id);
+            return true;
         }
     }
 }

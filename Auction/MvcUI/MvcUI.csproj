@@ -183,6 +183,7 @@
     <Compile Include="ViewModels\LotsRequestModel.cs" />
     <Compile Include="ViewModels\LotsViewModel.cs" />
     <Compile Include="ViewModels\LotCreateModel.cs" />
+    <Compile Include="ViewModels\LotUpdateModel.cs" />
     <Compile Include="ViewModels\LotViewModel.cs" />
     <Compile Include="ViewModels\SignInModel.cs" />
     <Compile Include="ViewModels\SignUpModel.cs" />
@@ -191,6 +192,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\loadingImages\760.gif" />
+    <Content Include="Error.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -202,7 +204,6 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\LotManager\MakeRate.js" />
     <Content Include="Scripts\LotManager\ViewLots.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Views\Home\UsersEdit.cshtml" />
@@ -210,6 +211,7 @@
     <Content Include="Views\LotManager\Index.cshtml" />
     <Content Include="Views\LotManager\Lot.cshtml" />
     <Content Include="Views\Shared\_AllLots.cshtml" />
+    <Content Include="Views\LotManager\UpdateLot.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />

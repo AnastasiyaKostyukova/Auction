@@ -1,0 +1,63 @@
+﻿@using MvcUI.ViewModels
+@model LotUpdateModel
+
+@{
+    ViewBag.Title = "UpdateLot";
+}
+
+<h2>Updating lot</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <div>
+        <fieldset>
+            <legend>Show lot:</legend>
+            <dl>
+                <dt>Name: @Html.DisplayTextFor(r => r.ArtworkName)</dt>
+                <dt>Photo: @Html.DisplayTextFor(r => r.Photos)</dt>
+                <dt>Author of image: @Html.DisplayTextFor(r => r.Author)</dt>
+                <dt>Artwork format: @Html.DisplayTextFor(r => r.ArtworkFormat)</dt>
+                <dt>Starting price: @Html.DisplayTextFor(r => r.StartingPrice)</dt>
+            </dl>
+
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.DateOfAuction)
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Description)
+            </div>
+            <div class="editor-field">
+                @Html.TextAreaFor(m => m.Description)
+                @Html.ValidationMessageFor(m => m.Description)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.MinimalStepRate)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.MinimalStepRate)
+                @Html.ValidationMessageFor(m => m.MinimalStepRate)
+            </div>
+
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.UpdatingDateOfAuction)
+            </div>
+            <div class="editor-field">
+                @{
+                    var attr = new Dictionary<string, object>();
+                    attr.Add("type", "datetime-local");
+                }
+                @Html.TextBox("UpdatingDateOfAuction", Model.UpdatingDateOfAuction.ToString("yyyy-MM-ddTHH:mm:ss"), attr)
+                @Html.ValidationMessageFor(m => m.UpdatingDateOfAuction)
+            </div>
+            <p>
+                <br/><br/><br/>
+                <input type="submit" value="Update this lot"/>
+            </p>
+        </fieldset>
+    </div>
+}

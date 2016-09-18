@@ -24,10 +24,17 @@ namespace EFDAL.Repositories
 	        _auctionContext.SaveChanges();
         }
 
-	    public void DeleteLot(Lot lot)
+	    public void DeleteLot(int id)
 	    {
-	        _auctionContext.Lots.Remove(lot);
-	        _auctionContext.SaveChanges();
+	        var allRatesOnLotForDelete = _auctionContext.UsersLotsRates.Where(l => l.LotId == id);
+	        foreach (var rate in allRatesOnLotForDelete)
+	        {
+	            _auctionContext.UsersLotsRates.Remove(rate);
+	        }
+
+            var lotForDeleting = _auctionContext.Lots.FirstOrDefault(l => l.Id == id);
+	        _auctionContext.Lots.Remove(lotForDeleting);
+            _auctionContext.SaveChanges();
 	    }
 
 	    public IEnumerable<Lot> GetAllLots()
@@ -60,9 +67,20 @@ namespace EFDAL.Repositories
             }
 
 	        var lot = _auctionContext.Lots.FirstOrDefault(l => l.Id == lotId);
+
 	        lot.CurrentBuyerId = userId;
 	        lot.CurrentPrice = newPrice;
 	        lot.RatesCount++;
+	        _auctionContext.SaveChanges();
+	    }
+
+	    public void UpdateDescriptionDateStepOfLot(Lot lot)
+	    {
+	        var lotForUpdate = _auctionContext.Lots.FirstOrDefault(l => l.Id == lot.Id);
+
+            lotForUpdate.Description = lot.Description;
+	        lotForUpdate.DateOfAuction = lot.DateOfAuction;
+	        lotForUpdate.MinimalStepRate = lot.MinimalStepRate;
 	        _auctionContext.SaveChanges();
 	    }
     }

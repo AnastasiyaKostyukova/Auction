@@ -45,6 +45,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CRUDLotService.cs" />
     <Compile Include="Services\CRUDUserService.cs" />
+    <Compile Include="Services\Helper.cs" />
     <Compile Include="Services\LotService.cs" />
     <Compile Include="TestWriter.cs" />
   </ItemGroup>

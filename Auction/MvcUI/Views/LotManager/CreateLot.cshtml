@@ -107,9 +107,8 @@
         <div class="editor-label">
             @Html.LabelFor(m => m.DateOfAuction)
         </div>
-                @*@Html.EditorFor(m => m.DateOfAuction)
-                @Html.ValidationMessageFor(m => m.DateOfAuction)*@
-                @Html.TextBoxFor(model => model.DateOfAuction , new { type = "datetime-local" })
+            @Html.TextBoxFor(model => model.DateOfAuction , new { type = "datetime-local" })
+            @Html.ValidationMessageFor(m => m.DateOfAuction)
             <br/><br /><br /><br />
 
             <p>

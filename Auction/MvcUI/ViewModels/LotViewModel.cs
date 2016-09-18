@@ -35,7 +35,7 @@ namespace MvcUI.ViewModels
         public int CurrentUserId { get; set; }
 
         [Required]
-        [Display(Name = "Price Rate..")]
+        [Display(Name = "Your price rate")]
         public string PriceRate { get; set; }
     }
 }

@@ -18,6 +18,6 @@ namespace MvcUI
 					url: "{controller}/{action}/{id}",
 					defaults: new { controller = "LotManager", action = "Index", id = UrlParameter.Optional }
 			);
-		}
+        }
 	}
 }

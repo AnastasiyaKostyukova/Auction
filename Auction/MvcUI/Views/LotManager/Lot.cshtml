@@ -4,65 +4,7 @@
     ViewBag.Title = "Lot";
 }
 
-<script src="@Url.Content("~/Scripts/LotManager/MakeRate.js")"></script>
-
-<script type="text/javascript">
-    var makeRateObject = new makeRate();
-</script>
-
 <h2>Show Lot</h2>
-
-@*<div>
-    <fieldset>
-        <legend>Show lot:</legend>
-        <dl>
-            <dt>Photo: @Model.Photos</dt>
-            <dt>Name: @Model.ArtworkName</dt>
-            <dt>Author of image: @Model.Author</dt>
-            <dt>Artwork format: @Model.ArtworkFormat</dt>
-            <dt>Starting price: @Model.StartingPrice</dt>
-            <dt>Description: @Model.Description</dt>
-            <dt>Current Price: @Model.CurrentPrice</dt>
-            <dt>Date Of finish of Auction: @Model.DateOfAuction</dt>
-        </dl>
-    </fieldset>
-</div>
-
-
-@if (Model.UserOwnerId != Model.CurrentUserId)
-{
-    <div id="makeRateForm">
-        @using (Html.BeginForm())
-        {
-            @Html.ValidationSummary(true)
-
-            <div>
-                <fieldset>
-                    <legend>To make new rate</legend>
-
-                    <div class="editor-label">
-                        @Html.LabelFor(m => m.PriceRate)
-                    </div>
-                    <div class="editor-field">
-                        @Html.TextBoxFor(m => m.PriceRate)
-                        @Html.ValidationMessageFor(m => m.PriceRate)
-                    </div>
-
-                    @Html.HiddenFor(model => model.Id)
-                    @Html.HiddenFor(model => model.ArtworkName)
-
-                    <p>
-                        <input type="submit" value="to do" />
-                    </p>
-
-                </fieldset>
-            </div>
-        }
-    </div>
-}*@
-
-
-
 
 <div id="makeRateForm">
     @using (Html.BeginForm())
@@ -113,12 +55,54 @@
                     @Html.HiddenFor(model => model.CurrentUserId)
 
                     <p>
-                        <input type="submit" value="to do"/>
+                        <input type="submit" value="to do rate"/>
                     </p>
 
                 </fieldset>
             </div>
         }
+    }
+</div>
+
+<div>
+    @if (ViewBag.CanUpdate)
+    {
+        @Html.ActionLink("Update lot", "UpdateLot", "LotManager", new { id = Model.Id }, null)
+    }
+
+    @if (ViewBag.CanDelete)
+    {
+        <br/>
+        <a onclick="deleteLot()">DELETE LOT</a>
+
+        <script type="text/javascript">
+            function deleteLot() {
+                if (confirm("Are you really want delete this lot?") == false) {
+                    return;
+                }
+
+                var url = '@Url.Action("DeleteLot")';
+                var reditectUrl = '@Url.Action("Index")';
+
+                var request = {
+                    id: '@Model.Id'
+                };
+
+                ////todo loading
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: request,
+                    success: function (result) {
+                        if (result.toLowerCase() === "true") {
+                            window.location.href = reditectUrl;
+                        } else {
+                            document.write(result);
+                        }
+                    }
+                });
+            }
+        </script>
     }
 </div>
 

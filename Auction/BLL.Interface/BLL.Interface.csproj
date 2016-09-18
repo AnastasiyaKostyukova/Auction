@@ -44,6 +44,7 @@
     <Compile Include="Models\BLLLot.cs" />
     <Compile Include="Models\BLLRate.cs" />
     <Compile Include="Models\BLLRole.cs" />
+    <Compile Include="Models\BLLSearch.cs" />
     <Compile Include="Models\BLLUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ICRUDLotService.cs" />

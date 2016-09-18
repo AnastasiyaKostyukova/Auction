@@ -20,5 +20,25 @@ namespace MvcUI
 
 			DependencyResolver.SetResolver(new NinjectDependencyResolver());
 		}
-	}
+
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            var exception = Server.GetLastError();
+
+            if (exception == null)
+            {
+                return;
+            }
+
+            var errorString = $"{exception.GetType()}: {exception.Message}";
+
+            //Logger.Error(errorString);
+
+            //Response.Write("<center><h1>Global Page Error</h1>\n");
+            //Response.Write("<p>" + errorString + "</p></center>");
+
+            Server.ClearError();
+            HttpContext.Current.Response.Redirect("~/Error.html");
+        }
+    }
 }

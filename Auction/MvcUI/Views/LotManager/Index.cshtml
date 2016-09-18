@@ -14,54 +14,85 @@
     viewLotsObject.ALL_LOTS = 'all_lots';
     viewLotsObject.MY_LOTS = 'my_lots';
     viewLotsObject.MY_RATES_LOTS = 'my_rates_lots';
+    viewLotsObject.MY_WINS_LOTS = 'my_wins_lots'
     viewLotsObject.loadingImage = '@Url.Content("~/content/loadingImages/760.gif")';
 
     // page loaded
     $(document).ready(function () {
-        viewLotsObject.currentTab = viewLotsObject.ALL_LOTS;
-        viewLotsObject.lightTab(viewLotsObject.ALL_LOTS);
+        viewLotsObject.openTab(viewLotsObject.ALL_LOTS);
     });
 </script>
 
-<h2>Index</h2>
-
 <body>
-<div>
-    <div class="col-md-4" style="background-color: yellow">
-        А тут будут категории, по которым можно будет отбирать лоты:<br /><br />
+<br/><br /><br />
+    <div>
+        <div class="col-md-4" style="background-color: white">
+            А тут будут категории, по которым можно будет отбирать лоты:<br /><br />
 
-        <p>
-            <b>Search by author artwork:</b><br />
-            <input type="text" size="25"><br /><br />
+
+            <label>
+                <select id="countLotsOnPage">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                </select>
+                Count of lots per page
+            </label><br /><br />
+
+            <p>
+                <b>Search by author artwork:</b><br />
+            </p>
+            <input id="authorArtworkName" type="text" size="25"><br /><br />
+
+            <p>
+                <b>Search by artwork name:</b><br />
+            </p>
+            <input id="artworkName" type="text" size="25"><br /><br />
 
             <b>price ot i do</b><br />
-            <input type="text" size="10" style="margin-right: 10px;"><input type="text" size="10"><br /><br />
-            
-    </div>
-    <div class="col-md-8" style="background-color: wheat">
+            <input id="minimalPrice" type="text" size="10" style="margin-right: 10px;" ><input id="maximalPrice" type="text" size="10"><br /><br />
 
-        <button id="allLotsButton"
-                onclick="viewLotsObject.openTab(viewLotsObject.ALL_LOTS)">
-            All lots
-        </button>
 
-        <button id="myLotsButton"
-                onclick="viewLotsObject.openTab(viewLotsObject.MY_LOTS)">
-            My lots
-        </button>
+            <label><input id="oderbyDate" type="checkbox"/> Order by date of auction</label><br>
 
-        <button id="myRatesLotsButton"
-                onclick="viewLotsObject.openTab(viewLotsObject.MY_RATES_LOTS)">
-            My rates
-        </button>
-
-        <div id="lotList">
-            @{
-                Html.RenderAction("Lots");
-            }
+            <button onclick="viewLotsObject.searchByParameters()">Search</button>
+            <button onclick="viewLotsObject.clearFilter()">Clear</button>
         </div>
     </div>
+
+
+
+
+<div class="col-md-8" style="background-color: white">
+
+    <button id="allLotsButton"
+            onclick="viewLotsObject.openTab(viewLotsObject.ALL_LOTS)">
+        All lots
+    </button>
+
+    <button id="myLotsButton"
+            onclick="viewLotsObject.openTab(viewLotsObject.MY_LOTS)">
+        My lots
+    </button>
+
+    <button id="myRatesLotsButton"
+            onclick="viewLotsObject.openTab(viewLotsObject.MY_RATES_LOTS)">
+        My rates
+    </button>
+
+    <button id="myWinsLotsButton"
+            onclick="viewLotsObject.openTab(viewLotsObject.MY_WINS_LOTS)">
+        My wins
+    </button>
+
+    <div id="lotList">
+        @*@{
+                Html.RenderAction("Lots");
+            }*@
+    </div>
 </div>
+
 
 
 </body>

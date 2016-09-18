@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc.Html;
 
 namespace MvcUI.ViewModels
 {
@@ -15,7 +11,7 @@ namespace MvcUI.ViewModels
 
         [Required]
         [Display(Name = "Description")]
-        [MaxLength(100, ErrorMessage = "Your description should not contain more than 100 characters.")]
+        [MaxLength(500, ErrorMessage = "Your description should not contain more than 100 characters.")]
         public string Description { get; set; }
 
         [Required]
@@ -44,12 +40,12 @@ namespace MvcUI.ViewModels
 
         [Required]
         [Display(Name = "Date of the end of the auction")]
-        [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DateOfAuction { get; set; }
 
-        //public int Id { get; set; }
+        public int Id { get; set; }
+        public DateTime UpdatingDateOfAuction { get; set; }
         //public int SellerId { get; set; }
-        //public decimal CurrentPrice { get; set; }
+        public decimal CurrentPrice { get; set; }
         //public int CurrentBuyerId { get; set; }
         //public int RatesCount { get; set; }
 

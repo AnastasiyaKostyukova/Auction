@@ -29,6 +29,8 @@ namespace BLL.Interface.Models
         public int CurrentBuyerId { get; set; }
         public int RatesCount { get; set; }
 
+        public bool LotIsFinishedAuction => DateOfAuction < DateTime.Now;
+
         public List<UsersLotsRate> UsersLotsRates { get; set; }
     }
 }

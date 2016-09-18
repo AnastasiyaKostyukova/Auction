@@ -2,27 +2,39 @@
     var self = this;
 
     self.currentTab = "";
+    self.lastSearchQueryString = "";
 
     self.openTab = function (tabName) {
         if (self.currentTab == tabName) {
             return;
         }
 
+        // clear last search
+        self.lastSearchQueryString = "";
+
         var url = self.LOT_ACTION_URL;
         url += buildQueryString(tabName);
-        console.log(url);
 
+        self.clearFilter();
         loadNewData(url);
+
         self.lightTab(tabName);
         self.currentTab = tabName;
+    };
+
+    self.searchByParameters = function() {
+        var url = self.LOT_ACTION_URL;
+        url += buildQueryString(self.currentTab, 1, true);
+        loadNewData(url);
     };
 
     self.openPage = function(pageNumber) {
         var url = self.LOT_ACTION_URL;
         url += buildQueryString(self.currentTab, pageNumber);
+        url += self.lastSearchQueryString;
+
         console.log(url);
 
-        //$('#lotList').load(url);
         loadNewData(url);
         $("html, body").animate({ scrollTop: 0 }, "slow");
     };
@@ -68,15 +80,27 @@
         }
     };
 
+    self.clearFilter = function() {
+        $('#authorArtworkName').val('');
+        $('#artworkName').val('');
+        $('#minimalPrice').val('');
+        $('#maximalPrice').val('');
+        document.getElementById("oderbyDate").checked = false;
+        $('#countLotsOnPage').val('5');
+    }
+
     self.lightTab = function(tabName) {
         $('#allLotsButton').removeClass('btn-danger');
         $('#myLotsButton').removeClass('btn-danger');
         $('#myRatesLotsButton').removeClass('btn-danger');
+        $('#myWinsLotsButton').removeClass('btn-danger');
 
         if (tabName == self.MY_LOTS) {
             $('#myLotsButton').addClass('btn-danger');
         } else if (tabName == self.ALL_LOTS) {
             $('#allLotsButton').addClass('btn-danger');
+        } else if (tabName == self.MY_WINS_LOTS) {
+            $('#myWinsLotsButton').addClass('btn-danger');
         } else {
             $('#myRatesLotsButton').addClass('btn-danger');
         }
@@ -104,11 +128,43 @@
         }
 
         //todo build search param
-        var lotName = $('#lotname').val();
-        if (lotName) {
-            queryString += "&lotArtName=" + lotName;
+        var searchQueryString = '';
+        var countLotsOnPage = $('#countLotsOnPage').val();
+        if (countLotsOnPage) {
+            searchQueryString += "&LotsCountOnPage=" + countLotsOnPage;
         }
 
+        var lotauthName = $('#authorArtworkName').val();
+        if (lotauthName) {
+            searchQueryString += "&PictureAuthor=" + lotauthName;
+        }
+
+        var lotName = $('#artworkName').val();
+        if (lotName) {
+            searchQueryString += "&ArtworkName=" + lotName;
+        }
+
+        var minPrice = $('#minimalPrice').val();
+        if (+minPrice) {
+            searchQueryString += "&MinPrice=" + minPrice;
+        } else {
+            $('#minimalPrice').val('');
+        }
+
+        var maxPrice = $('#maximalPrice').val();
+        if (+maxPrice) {
+            searchQueryString += "&MaxPrice=" + maxPrice;
+        } else {
+            $('#maximalPrice').val('');
+        }
+
+        var oderbyDate = document.getElementById("oderbyDate").checked;
+        if (oderbyDate) {
+            searchQueryString += "&OrderByAuctionDate=" + oderbyDate;
+        }
+
+        self.lastSearchQueryString = searchQueryString;
+        queryString += searchQueryString;
         return queryString;
     }
 

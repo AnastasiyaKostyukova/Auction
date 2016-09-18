@@ -12,7 +12,8 @@ namespace MvcUI.Services
     public class LotManagerService
     {
         private const string TabNameMyRates = "my_rates_lots";
-        private const string TabNameMyLots = "my_lots";
+        public const string TabNameMyLots = "my_lots";
+        private const string TabNameMyWinsLots = "my_wins_lots";
 
         private readonly ICRUDLotService _crudLotService;
         private readonly ICRUDUserService _crudUserService;
@@ -34,11 +35,18 @@ namespace MvcUI.Services
             {
                 var userId = _crudUserService.GetUserByEmail(currentUserEmail).Id;
                 lots = _crudLotService.GetAllLots()
-                    .Where(l => l.UsersLotsRates.Any(ulr => ulr.UserId == userId)).ToList();
+                    .Where(l => l.UsersLotsRates.Any(ulr => ulr.UserId == userId) 
+                    && l.LotIsFinishedAuction == false).ToList();
+            }
+            else if(tabName == TabNameMyWinsLots)
+            {
+                var userId = _crudUserService.GetUserByEmail(currentUserEmail).Id;
+                lots = _crudLotService.GetAllLots().Where(l => l.CurrentBuyerId == userId 
+                && l.LotIsFinishedAuction).ToList();
             }
             else
             {
-                lots = _crudLotService.GetAllLots().ToList();
+                lots = _crudLotService.GetAllLots().Where(l => l.LotIsFinishedAuction == false).ToList();
             }
 
             return lots;
@@ -46,6 +54,11 @@ namespace MvcUI.Services
 
         public LotsViewModel BuildPagingModel(List<BLLLot> lots, LotsRequestModel lotsRequest, string currentUserEmail)
         {
+            if (lotsRequest.LotsCountOnPage == 0)
+            {
+                lotsRequest.LotsCountOnPage = 5;
+            }
+
             var maxPageNumber = 1;
             if (lots.Count % lotsRequest.LotsCountOnPage != 0)
             {
