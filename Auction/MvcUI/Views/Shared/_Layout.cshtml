@@ -29,7 +29,17 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("ART Auction", "Index", "LotManager", new { area = "" }, new { @class = "navbar-brand" })
+                @if (User.Identity.IsAuthenticated)
+                {
+                    if (User.IsInRole("banned"))
+                    {
+                        @Html.ActionLink("My rates", "BannedUserInfo", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("ART Auction", "Index", "LotManager", new {area = ""}, new {@class = "navbar-brand"})
+                    }
+                }
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -41,9 +51,17 @@
                     }
                     else
                     {
-                        <li style="color: white">@HttpContext.Current.User.Identity.Name</li>
-                        <li>@Html.ActionLink("Sign Off", "SignOff", "Account")</li>
                         <li>@Html.ActionLink("Create lot", "CreateLot", "LotManager")</li>
+
+                        var color = "color: white";
+
+                        if (HttpContext.Current.User.IsInRole("admin"))
+                        {
+                            color = "color: red";
+                        }
+
+                        <li style="@color" class = "navbar-brand">@HttpContext.Current.User.Identity.Name</li>
+                        <li>@Html.ActionLink("Sign Off", "SignOff", "Account")</li>
                     }
                 </ul>
             </div>

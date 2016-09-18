@@ -11,6 +11,7 @@ namespace EFDAL.Data
         {
             context.Roles.Add(new Role {Name = "admin"});
             context.Roles.Add(new Role { Name = "user" });
+            context.Roles.Add(new Role { Name = "banned" });
 
             context.SaveChanges();
         }

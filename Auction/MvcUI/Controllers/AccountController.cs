@@ -34,7 +34,7 @@ namespace MvcUI.Controllers
                 }
 
                 FormsAuthentication.SetAuthCookie(signUp.Email, false);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("About", "Home");
             }
             return View();
         }
@@ -66,7 +66,7 @@ namespace MvcUI.Controllers
                     return Redirect(returnUrl);
                 }
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("About", "Home");
             }
 
             return View();
@@ -76,12 +76,6 @@ namespace MvcUI.Controllers
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("SignIn", "Account");
-        }
-
-        [ChildActionOnly]
-        public ActionResult LoginPartial()
-        {
-            return PartialView("_LoginPartial");
         }
     }
 }

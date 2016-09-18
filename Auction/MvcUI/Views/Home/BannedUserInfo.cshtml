@@ -1,0 +1,35 @@
+﻿@model MvcUI.ViewModels.LotsViewModel
+@{
+    ViewBag.Title = "BannedUserInfo";
+}
+
+<h2>Banned User Info</h2>
+
+<h3>My rated lots:</h3>
+@foreach (var lot in Model.Lots)
+{
+    var lotClass = "class=lot";
+    if (Model.Tab == "my_rates_lots" && lot.CurrentBuyerId != Model.CurrentUserId)
+    {
+        lotClass = "class=warning-lot";
+    }
+
+    <fieldset @lotClass>
+        <div>
+            <div>
+                Name: <b>@lot.ArtworkName</b>
+            </div>
+            <div>
+                Author of image: <b>@lot.Author</b>
+            </div>
+            <div>
+                Artwork format: <b>@lot.ArtworkFormat</b>
+            </div>
+            <div>
+                Current price: <b>@lot.CurrentPrice</b>
+            </div>
+            <b>@Html.ActionLink("View details", "Lot", "LotManager", new { id = lot.Id }, null)</b>
+        </div>
+    </fieldset>
+        <br />
+}

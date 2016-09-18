@@ -6,43 +6,60 @@
 
     @foreach (BLLLot lot in Model.Lots)
     {
-        var redStyle = "";
+        var lotClass = "class=lot";
         if (Model.Tab == "my_rates_lots" && lot.CurrentBuyerId != Model.CurrentUserId)
         {
-            redStyle = "class=red-color";
+            lotClass = "class=warning-lot";
+        }
+        else if (lot.LotIsFinishedAuction)
+        {
+            lotClass = "class=finished-lot";
         }
 
-        <fieldset @redStyle>
-            <dl>
-                <dt>Name: @lot.ArtworkName</dt>
-                <dt>Author of image: @lot.Author</dt>
-                <dt>Artwork format: @lot.ArtworkFormat</dt>
-                <dt>Starting price: @lot.StartingPrice</dt>
-                <dt>@Html.ActionLink("View details", "Lot", "LotManager", new { id = lot.Id }, null)</dt>
-            </dl>
-            <br/>
+        <fieldset @lotClass>
+            <div class="row">
+                <div class="col-md-6">
+                    <div>
+                        Name: <b>@lot.ArtworkName</b>
+                    </div>
+                    <div>
+                        Author of image: <b>@lot.Author</b>
+                    </div>
+                    <div>
+                        Artwork format: <b>@lot.ArtworkFormat</b>
+                    </div>
+                    <div>
+                        Current price: <b>@lot.CurrentPrice</b>
+                    </div>
+                    <b>@Html.ActionLink("View details", "Lot", "LotManager", new {id = lot.Id}, null)</b>
+                </div>
+                <div class="col-md-6 right-align">
+                    <img src="@lot.Photos" class="lot-image-in-list"/>
+                </div>
+            </div>
         </fieldset>
+        <br/>
     }
 
 </div>
-<div>
-    <button id="goToFirstPage" onclick="viewLotsObject.openPage('1')">
+<div class="center-align">
+    <button class="btn" id="goToFirstPage" onclick="viewLotsObject.openPage('1')">
         First
     </button>
 
-    <button id="goToPage1" onclick="viewLotsObject.numericButtonsOfPagePressed('goToPage1')">
+    <button class="btn" id="goToPage1" onclick="viewLotsObject.numericButtonsOfPagePressed('goToPage1')">
         1
     </button>
 
-    <button id="goToPage2" onclick="viewLotsObject.numericButtonsOfPagePressed('goToPage2')">
+    <button class="btn" id="goToPage2" onclick="viewLotsObject.numericButtonsOfPagePressed('goToPage2')">
         2
     </button>
 
-    <button id="goToPage3" onclick="viewLotsObject.numericButtonsOfPagePressed('goToPage3')">
+    <button class="btn" id="goToPage3" onclick="viewLotsObject.numericButtonsOfPagePressed('goToPage3')">
         3
     </button>
 
-    <button id="goToLastPage" onclick="viewLotsObject.openPage('@Model.MaxPageNumber')">
+    <button class="btn" id="goToLastPage" onclick="viewLotsObject.openPage('@Model.MaxPageNumber')">
         Last
     </button>
 </div>

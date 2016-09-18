@@ -54,3 +54,46 @@ top:80px;
 .red-color {
     color: red;
 }
+
+.error-page-body {
+    background: url(backgrounds/errorPage.jpg);
+    background-size: cover;
+    background-attachment: fixed, fixed;
+    font-size: 42px;
+}
+
+.warning-lot {
+    background-color: #d28686;
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.lot {
+    background-color: #aef7e9;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.finished-lot {
+    background-color: #b7b9b9;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.lot-image-in-list {
+    border-radius: 10px;
+    height: 120px;
+}
+
+.tabs {
+    margin-bottom: 10px;
+}
+
+.center-align {
+    text-align: center
+}
+
+.right-align {
+    text-align: right
+}

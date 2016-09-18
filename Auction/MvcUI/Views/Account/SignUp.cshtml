@@ -4,7 +4,7 @@
     ViewBag.Title = "SignUp";
 }
 
-<h2>SignUp</h2>
+<h2>Sign Up</h2>
 
 
 @using (Html.BeginForm())
@@ -18,7 +18,7 @@
                 @Html.LabelFor(m => m.UserName)
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(m => m.UserName)
+                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.UserName)
             </div>
 
@@ -26,7 +26,7 @@
                 @Html.LabelFor(m => m.Email)
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(m => m.Email)
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.Email)
             </div>
 
@@ -34,7 +34,7 @@
                 @Html.LabelFor(m => m.Password)
             </div>
             <div class="editor-field">
-                @Html.PasswordFor(m => m.Password)
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.Password)
             </div>
 
@@ -42,12 +42,12 @@
                 @Html.LabelFor(m => m.ConfirmPassword)
             </div>
             <div class="editor-field">
-                @Html.PasswordFor(m => m.ConfirmPassword)
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.ConfirmPassword)
             </div>
 
             <p>
-                <input type="submit" value="Sign Up" />
+                <input class="btn btn-info" type="submit" value="Sign Up" />
             </p>
         </fieldset>
     </div>

@@ -7,6 +7,7 @@ namespace MvcUI.ViewModels
     {
         [Required]
         [Display(Name = "Name of Artwork")]
+        [MaxLength(30, ErrorMessage = "Your name's field should not contain more than 30 characters")]
         public string ArtworkName { get; set; }
 
         [Required]
@@ -16,14 +17,18 @@ namespace MvcUI.ViewModels
 
         [Required]
         [Display(Name = "Photos")]
+        [MaxLength(300, ErrorMessage = "Path to the photo should not contain more than 100 characters.")]
         public string Photos { get; set; }
 
         [Required]
         [Display(Name = "Author")]
+        [MaxLength(50, ErrorMessage = "Path to the photo should not contain more than 50 characters.")]
         public string Author { get; set; }
 
         [Required]
-        [Display(Name = "Artwork Format")]
+        [Display(Name = "Artwork Format, [mm]")]
+        [RegularExpression(@"\d+[*]\d+", ErrorMessage = "Please enter correct artwork format like a [140*220]")]
+        [MaxLength(50, ErrorMessage = "Path to the photo should not contain more than 50 characters.")]
         public string ArtworkFormat { get; set; }
 
         [Required]
@@ -31,11 +36,11 @@ namespace MvcUI.ViewModels
         public int YearOfCreation { get; set; }
 
         [Required]
-        [Display(Name = "Starting Price")]
+        [Display(Name = "Starting Price, $")]
         public decimal StartingPrice { get; set; }
 
         [Required]
-        [Display(Name = "Minimal Step Rate")]
+        [Display(Name = "Minimal Step of Rate, $")]
         public decimal MinimalStepRate { get; set; }
 
         [Required]
@@ -44,11 +49,6 @@ namespace MvcUI.ViewModels
 
         public int Id { get; set; }
         public DateTime UpdatingDateOfAuction { get; set; }
-        //public int SellerId { get; set; }
         public decimal CurrentPrice { get; set; }
-        //public int CurrentBuyerId { get; set; }
-        //public int RatesCount { get; set; }
-
-
     }
 }

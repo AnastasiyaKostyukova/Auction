@@ -1,0 +1,67 @@
+﻿@using MvcUI.ViewModels
+@model UserEditModel
+
+@{
+    ViewBag.Title = "UsersEdit";
+}
+
+<h2>User: @Model.UserName</h2>
+
+<div>
+    <fieldset>
+        <div>
+            <div>
+                Name of the user: <b>@Model.UserName</b>
+            </div>
+            <div>
+                Email: <b>@Model.Email</b>
+            </div>
+            <div>
+                Account creation date: <b>@Model.CreationDate</b>
+            </div>
+            <div>
+                Count of lots sold successfully: <b>@Model.CountLotsSold</b>
+            </div>
+            <div>
+                Count of lots with rates: <b>@Model.CountOfRatesOnLots</b>
+            </div>
+        </div>
+    </fieldset>
+</div>
+
+<br/>
+<div>
+    @if(Model.CurrentUserId != Model.Id)
+    {
+        if (Model.IsBanned == false)
+        {
+            using (Html.BeginForm("BanUser", "Admin"))
+            {
+                @Html.HiddenFor(model => model.Id)
+                <input class="btn btn-danger" type="submit" value="Ban this user"/>
+            }
+        }
+        else
+        {
+            using (Html.BeginForm("UnBanUser", "Admin"))
+            {
+                @Html.HiddenFor(model => model.Id)
+                <input class="btn btn-success" type="submit" value="unban this user" />
+            }
+        }
+    }
+</div>
+<br/>
+<hr/>
+
+<h4>User's lots</h4>
+<div>
+    <ul>
+        @foreach (var lot in Model.Lots)
+        {
+            <li>
+                @Html.ActionLink(lot.ArtworkName, "Lot", "LotManager", new { id = lot.Id }, null)
+            </li>
+        }
+    </ul>
+</div>

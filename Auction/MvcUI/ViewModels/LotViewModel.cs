@@ -33,9 +33,13 @@ namespace MvcUI.ViewModels
         }
 
         public int CurrentUserId { get; set; }
+        public bool CanRate { get; set; }
+        public bool CanDelete { get; set; }
+        public bool CanSeeUser { get; set; }
+        public bool CanUpdate { get; set; }
 
         [Required]
-        [Display(Name = "Your price rate")]
-        public string PriceRate { get; set; }
+        [Display(Name = "Your price of rate")]
+        public decimal PriceRate { get; set; }
     }
 }

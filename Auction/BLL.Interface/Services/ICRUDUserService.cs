@@ -14,6 +14,7 @@ namespace BLL.Interface.Services
         BLLUser GetUserByEmail(string email);
         BLLUser GetUserById(int id);
         void UpdateUser(BLLUser user);
-        void RemoveUser(int id);
+        void ChangeBanStatusUser(int id, bool isBan);
+        IEnumerable<BLLUser> GetBannedUsers();
     }
 }

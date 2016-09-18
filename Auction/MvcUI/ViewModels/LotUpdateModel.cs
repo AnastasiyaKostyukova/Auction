@@ -3,11 +3,32 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using BLL.Interface.Models;
 
 namespace MvcUI.ViewModels
 {
     public class LotUpdateModel
     {
+        public LotUpdateModel()
+        {
+            
+        }
+
+        public LotUpdateModel(BLLLot bllLot)
+        {
+            Id = bllLot.Id;
+            ArtworkName = bllLot.ArtworkName;
+            Author = bllLot.Author;
+            Description = bllLot.Description;
+            Photos = bllLot.Photos;
+            StartingPrice = bllLot.StartingPrice;
+            YearOfCreation = bllLot.YearOfCreation;
+            MinimalStepRate = bllLot.MinimalStepRate;
+            DateOfAuction = bllLot.DateOfAuction;
+            ArtworkFormat = bllLot.ArtworkFormat;
+            UpdatingDateOfAuction = bllLot.DateOfAuction;
+        }
+
         public string ArtworkName { get; set; }
         public string Photos { get; set; }
         public string Author { get; set; }

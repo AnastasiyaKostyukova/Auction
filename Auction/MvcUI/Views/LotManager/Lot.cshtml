@@ -4,7 +4,52 @@
     ViewBag.Title = "Lot";
 }
 
-<h2>Show Lot</h2>
+<div class="row">
+    <div class="col-md-8">
+        <h2>Lot: @Model.ArtworkName</h2>
+    </div>
+    <div class="col-md-2">
+        @if (Model.CanDelete)
+        {
+            <a onclick="deleteLot()" class="btn btn-danger">DELETE LOT</a>
+
+            <script type="text/javascript">
+                function deleteLot() {
+                    if (confirm("Are you really want delete this lot?") == false) {
+                        return;
+                    }
+
+                    var url = '@Url.Action("DeleteLot")';
+                    var reditectUrl = '@Url.Action("Index")';
+
+                    var request = {
+                        id: '@Model.Id'
+                    };
+
+                    ////todo loading
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: request,
+                        success: function(result) {
+                            if (result.toLowerCase() === "true") {
+                                window.location.href = reditectUrl;
+                            } else {
+                                document.write(result);
+                            }
+                        }
+                    });
+                }
+            </script>
+        }
+    </div>
+    <div class="col-md-2">
+        @if (Model.CanSeeUser)
+        {
+            @Html.ActionLink("Watch seller of this lot", "UsersEdit", "Admin", new {id = Model.UserOwnerId}, new {@class = "btn btn-info"})
+        }
+    </div>
+</div>
 
 <div id="makeRateForm">
     @using (Html.BeginForm())
@@ -13,32 +58,63 @@
 
         <div>
             <fieldset>
-                <legend>Show lot:</legend>
-                <dl>
-                    <dt>Name: @Html.DisplayTextFor(r => r.ArtworkName)</dt>
-                    <dt>Photo: @Html.DisplayTextFor(r => r.Photos)</dt>
-                    <dt>Author of image: @Html.DisplayTextFor(r => r.Author)</dt>
-                    <dt>Artwork format: @Html.DisplayTextFor(r => r.ArtworkFormat)</dt>
-                    <dt>Starting price: @Html.DisplayTextFor(r => r.StartingPrice)</dt>
-                    <dt>Description: @Html.DisplayTextFor(r => r.Description)</dt>
-                    <dt>Current Price: @Html.DisplayTextFor(r => r.CurrentPrice)</dt>
-                    <dt>Date Of finish of Auction: @Html.DisplayTextFor(r => r.DateOfAuction)</dt>
-                    <dt>RatesCount: @Html.DisplayTextFor(r => r.RatesCount)</dt>
-                </dl>
+                <div class="col-md-6">
+                    <img src="@Html.DisplayTextFor(r => r.Photos)" width="500"/>
+                </div>
+
+                <div class="col-md-6">
+
+                    <table class="table">
+                        <tr>
+                            <td>Name:</td>
+                            <td><b>@Html.DisplayTextFor(r => r.ArtworkName)</b></td>
+                        </tr>
+                        <tr>
+                            <td>Author of image:</td>
+                            <td><b>@Html.DisplayTextFor(r => r.Author)</b></td>
+                        </tr>
+                        <tr>
+                            <td>Artwork format:</td>
+                            <td><b>@Html.DisplayTextFor(r => r.ArtworkFormat)</b></td>
+                        </tr>
+                        <tr>
+                            <td>Starting price:</td>
+                            <td><b>@Html.DisplayTextFor(r => r.StartingPrice)</b></td>
+                        </tr>
+                        <tr>
+                            <td>Description:</td>
+                            <td><b>@Html.DisplayTextFor(r => r.Description)</b></td>
+                        </tr>
+                        <tr>
+                            <td>Current Price:</td>
+                            <td><b>@Html.DisplayTextFor(r => r.CurrentPrice)</b></td>
+                        </tr>
+                        <tr>
+                            <td>Minimal Step Rate:</td>
+                            <td><b>@Html.DisplayTextFor(r => r.MinimalStepRate)</b></td>
+                        </tr>
+                        <tr>
+                            <td>Date Of finish of Auction:</td>
+                            <td><b>@Html.DisplayTextFor(r => r.DateOfAuction)</b></td>
+                        </tr>
+                        <tr>
+                            <td>Rates Count:</td>
+                            <td><b>@Html.DisplayTextFor(r => r.RatesCount)</b></td>
+                        </tr>
+                    </table>
+                </div>
             </fieldset>
         </div>
 
-        if (ViewBag.CanRate)
+        if (Model.CanRate)
         {
             <div>
                 <fieldset>
-                    <legend>To make new rate</legend>
-
                     <div class="editor-label">
                         @Html.LabelFor(m => m.PriceRate)
                     </div>
                     <div class="editor-field">
-                        @Html.TextBoxFor(m => m.PriceRate)
+                        @Html.TextBoxFor(m => m.PriceRate, new { @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.PriceRate)
                     </div>
 
@@ -53,9 +129,14 @@
                     @Html.HiddenFor(model => model.ArtworkFormat)
                     @Html.HiddenFor(model => model.RatesCount)
                     @Html.HiddenFor(model => model.CurrentUserId)
+                    @Html.HiddenFor(model => model.CanDelete)
+                    @Html.HiddenFor(model => model.CanRate)
+                    @Html.HiddenFor(model => model.CanUpdate)
+                    @Html.HiddenFor(model => model.CanSeeUser)
+                    @Html.HiddenFor(model => model.MinimalStepRate)
 
                     <p>
-                        <input type="submit" value="to do rate"/>
+                        <input class="btn btn-success" type="submit" value="Rate"/>
                     </p>
 
                 </fieldset>
@@ -65,44 +146,9 @@
 </div>
 
 <div>
-    @if (ViewBag.CanUpdate)
+    @if (Model.CanUpdate)
     {
-        @Html.ActionLink("Update lot", "UpdateLot", "LotManager", new { id = Model.Id }, null)
-    }
-
-    @if (ViewBag.CanDelete)
-    {
-        <br/>
-        <a onclick="deleteLot()">DELETE LOT</a>
-
-        <script type="text/javascript">
-            function deleteLot() {
-                if (confirm("Are you really want delete this lot?") == false) {
-                    return;
-                }
-
-                var url = '@Url.Action("DeleteLot")';
-                var reditectUrl = '@Url.Action("Index")';
-
-                var request = {
-                    id: '@Model.Id'
-                };
-
-                ////todo loading
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: request,
-                    success: function (result) {
-                        if (result.toLowerCase() === "true") {
-                            window.location.href = reditectUrl;
-                        } else {
-                            document.write(result);
-                        }
-                    }
-                });
-            }
-        </script>
+        @Html.ActionLink("Update lot", "UpdateLot", "LotManager", new { id = Model.Id }, new { @class = "btn btn-success" })
     }
 </div>
 

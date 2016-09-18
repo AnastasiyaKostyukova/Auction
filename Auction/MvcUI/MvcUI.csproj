@@ -93,6 +93,10 @@
     <Reference Include="Ninject">
       <HintPath>C:\Users\Yuri\Downloads\ASP.NET MVC Training. Summer-Express. 2016\Day 18\AuthenticationSamples.Autumn.2015\CustomAuth\Bin\Ninject.dll</HintPath>
     </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.3.8\lib\net45\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
@@ -169,6 +173,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LotManagerController.cs" />
     <Compile Include="Global.asax.cs">
@@ -180,6 +185,7 @@
     <Compile Include="Providers\AuctionMembershipProvider.cs" />
     <Compile Include="Providers\AuctionRoleProvider.cs" />
     <Compile Include="Services\LotManagerService.cs" />
+    <Compile Include="ViewModels\AboutModel.cs" />
     <Compile Include="ViewModels\LotsRequestModel.cs" />
     <Compile Include="ViewModels\LotsViewModel.cs" />
     <Compile Include="ViewModels\LotCreateModel.cs" />
@@ -187,11 +193,14 @@
     <Compile Include="ViewModels\LotViewModel.cs" />
     <Compile Include="ViewModels\SignInModel.cs" />
     <Compile Include="ViewModels\SignUpModel.cs" />
+    <Compile Include="ViewModels\UserEditModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\backgrounds\errorPage.jpg" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\loadingImages\760.gif" />
+    <Content Include="Content\loadingImages\loading.gif" />
     <Content Include="Error.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -206,12 +215,14 @@
     </Content>
     <Content Include="Scripts\LotManager\ViewLots.js" />
     <Content Include="Scripts\moment.js" />
-    <Content Include="Views\Home\UsersEdit.cshtml" />
     <Content Include="Views\LotManager\CreateLot.cshtml" />
     <Content Include="Views\LotManager\Index.cshtml" />
     <Content Include="Views\LotManager\Lot.cshtml" />
     <Content Include="Views\Shared\_AllLots.cshtml" />
     <Content Include="Views\LotManager\UpdateLot.cshtml" />
+    <Content Include="Views\Admin\UsersEdit.cshtml" />
+    <Content Include="Views\Home\BannedUserInfo.cshtml" />
+    <Content Include="Views\Admin\BannedUsers.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -252,7 +263,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
     <Content Include="Views\Account\SignUp.cshtml" />
     <Content Include="Views\Account\SignIn.cshtml" />

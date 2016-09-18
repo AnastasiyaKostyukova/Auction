@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using BLL.Interface.Models;
 using BLL.Interface.Services;
-using DAL.Interface.Repositories;
 using MvcUI.Services;
 using MvcUI.ViewModels;
 
 namespace MvcUI.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "admin, user")]
     public class LotManagerController : Controller
     {
         private readonly LotManagerService _lotManagerService;
@@ -29,7 +26,6 @@ namespace MvcUI.Controllers
             _lotService = lotService;
             _lotManagerService = new LotManagerService(_crudLotService, _crudUserService);
         }
-
 
         public ActionResult Index(LotsRequestModel lotsRequest)
         {
@@ -66,6 +62,7 @@ namespace MvcUI.Controllers
                 SearchByMaxPrice = lotsRequest.MaxPrice,
                 OrderByAuctionDate = lotsRequest.OrderByAuctionDate
             };
+
             lots = _lotService.Search(bllSearchModel, lots).ToList();
             var model = _lotManagerService.BuildPagingModel(lots, lotsRequest, User.Identity.Name);
 
@@ -80,31 +77,40 @@ namespace MvcUI.Controllers
             var currentUserId = _crudUserService.GetUserByEmail(emailOfCurrentUser).Id;
             lotView.CurrentUserId = currentUserId;
 
-            ViewBag.CanUpdate = lot.UserOwnerId == currentUserId && lot.LotIsFinishedAuction == false;
-            ViewBag.CanRate = currentUserId != lot.UserOwnerId && lot.LotIsFinishedAuction == false;
-            ViewBag.CanDelete = (currentUserId == lot.UserOwnerId && lot.LotIsFinishedAuction 
-                && lot.CurrentBuyerId == 0) || (currentUserId == lot.UserOwnerId 
-                && !lot.LotIsFinishedAuction);
+            lotView.CanDelete = (currentUserId == lot.UserOwnerId
+                                 && ((lot.LotIsFinishedAuction && lot.CurrentBuyerId == 0) || !lot.LotIsFinishedAuction))
+                                || User.IsInRole("admin");
+
+            lotView.CanRate = currentUserId != lot.UserOwnerId && lot.LotIsFinishedAuction == false;
+            lotView.CanUpdate = lot.UserOwnerId == currentUserId && lot.LotIsFinishedAuction == false;
+            lotView.CanSeeUser = User.IsInRole("admin");
+
+            lotView.PriceRate = lotView.CurrentPrice + lotView.MinimalStepRate;
             return View(lotView);
         }
 
         [HttpPost]
         public ActionResult Lot(LotViewModel lotView)
         {
-            ViewBag.CanRate = true;
             if (ModelState.IsValid == false)
             {
                 return View("Lot", lotView);
             }
 
-            decimal price;
-            if (decimal.TryParse(lotView.PriceRate, out price) == false)
+            var actualLot = _crudLotService.GetLotById(lotView.Id);
+            if (actualLot != null)
             {
-                ModelState.AddModelError("", "Price should be decimal");
+                lotView.CurrentPrice = actualLot.CurrentPrice;
+                lotView.MinimalStepRate = actualLot.MinimalStepRate;
+            }
+
+            if (lotView.PriceRate < lotView.CurrentPrice + lotView.MinimalStepRate)
+            {
+                ModelState.AddModelError("", "Price your rate should be more that minimal step");
                 return View("Lot", lotView);
             }
 
-            _lotService.MakeRate(lotView.Id, lotView.CurrentUserId, price);
+            _lotService.MakeRate(lotView.Id, lotView.CurrentUserId, lotView.PriceRate);
 
             return RedirectToAction("Index", "LotManager");
         }
@@ -128,44 +134,24 @@ namespace MvcUI.Controllers
                 return View();
             }
 
-                var user = _crudUserService.GetUserByEmail(User.Identity.Name);
+            if (newLot.YearOfCreation > DateTime.Now.Year || newLot.YearOfCreation < 0)
+            {
+                ModelState.AddModelError("", "Year of creation is not correct");
+                return View();
+            }
 
-                var createdLot = new BLLLot
-                {
-                    ArtworkName = newLot.ArtworkName,
-                    Author = newLot.Author,
-                    Photos = newLot.Photos,
-                    ArtworkFormat = newLot.ArtworkFormat,
-                    Description = newLot.Description,
-                    YearOfCreation = newLot.YearOfCreation,
-                    StartingPrice = newLot.StartingPrice,
-                    MinimalStepRate = newLot.MinimalStepRate,
-                    DateOfAuction = newLot.DateOfAuction,
-                    CurrentPrice = newLot.StartingPrice,
-                    UserOwnerId = user.Id
-                };
+            var user = _crudUserService.GetUserByEmail(User.Identity.Name);
 
-                _crudLotService.CreateLot(createdLot);
-                return RedirectToAction("Index", "LotManager");
+            var createdLot = BuildBllLot(newLot, user.Id);
+
+            _crudLotService.CreateLot(createdLot);
+            return RedirectToAction("Index", "LotManager");
         }
 
         public ActionResult UpdateLot(int id)
         {
             var bllLot = _crudLotService.GetLotById(id);
-            var lot = new LotUpdateModel()
-            {
-                Id = bllLot.Id,
-                ArtworkName = bllLot.ArtworkName,
-                Author = bllLot.Author,
-                Description = bllLot.Description,
-                Photos = bllLot.Photos,
-                StartingPrice = bllLot.StartingPrice,
-                YearOfCreation = bllLot.YearOfCreation,
-                MinimalStepRate = bllLot.MinimalStepRate,
-                DateOfAuction = bllLot.DateOfAuction,
-                ArtworkFormat = bllLot.ArtworkFormat,
-                UpdatingDateOfAuction = bllLot.DateOfAuction
-            };
+            var lot = new LotUpdateModel(bllLot);
 
             return View(lot);
         }
@@ -202,6 +188,25 @@ namespace MvcUI.Controllers
         {
             _crudLotService.DeleteLot(id);
             return true;
+        }
+
+        private BLLLot BuildBllLot(LotCreateModel newLot, int userId)
+        {
+            var bllLot = new BLLLot
+            {
+                ArtworkName = newLot.ArtworkName,
+                Author = newLot.Author,
+                Photos = newLot.Photos,
+                ArtworkFormat = newLot.ArtworkFormat,
+                Description = newLot.Description,
+                YearOfCreation = newLot.YearOfCreation,
+                StartingPrice = newLot.StartingPrice,
+                MinimalStepRate = newLot.MinimalStepRate,
+                DateOfAuction = newLot.DateOfAuction,
+                CurrentPrice = newLot.StartingPrice,
+                UserOwnerId = userId
+            };
+            return bllLot;
         }
     }
 }

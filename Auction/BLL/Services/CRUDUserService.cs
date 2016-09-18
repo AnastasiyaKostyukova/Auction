@@ -31,9 +31,15 @@ namespace BLL.Services
             return allUsers.Select(u => u.ToBllUser());
         }
 
-        public void RemoveUser(int id)
+        public void ChangeBanStatusUser(int id, bool isBan)
         {
-            _repositoryFactory.UserRepository.RemoveUser(id);
+            _repositoryFactory.UserRepository.ChangeBanStatusUser(id, isBan);
+        }
+
+        public IEnumerable<BLLUser> GetBannedUsers()
+        {
+            var banned = _repositoryFactory.UserRepository.GetBannedUsers();
+            return banned.Select(r => r.ToBllUser());
         }
 
         public BLLUser GetUserByEmail(string email)

@@ -15,7 +15,7 @@
     viewLotsObject.MY_LOTS = 'my_lots';
     viewLotsObject.MY_RATES_LOTS = 'my_rates_lots';
     viewLotsObject.MY_WINS_LOTS = 'my_wins_lots'
-    viewLotsObject.loadingImage = '@Url.Content("~/content/loadingImages/760.gif")';
+    viewLotsObject.loadingImage = '@Url.Content("~/content/loadingImages/loading.gif")';
 
     // page loaded
     $(document).ready(function () {
@@ -24,73 +24,79 @@
 </script>
 
 <body>
-<br/><br /><br />
-    <div>
-        <div class="col-md-4" style="background-color: white">
-            А тут будут категории, по которым можно будет отбирать лоты:<br /><br />
+<br/><br />
+<div>
+    <div class="col-md-4">
+        <label>
+            Count of lots per page:
+            <select class="form-control" id="countLotsOnPage">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+            </select>
+        </label><br/><br/>
 
+        <p>
+            <b>Search by author artwork:</b>
+        </p>
+        <input class="form-control" id="authorArtworkName" type="text">
+        <br/>
 
-            <label>
-                <select id="countLotsOnPage">
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="30">30</option>
-                </select>
-                Count of lots per page
-            </label><br /><br />
+        <p>
+            <b>Search by artwork name:</b>
+        </p>
+        <input class="form-control" id="artworkName" type="text">
+        <br/>
 
-            <p>
-                <b>Search by author artwork:</b><br />
-            </p>
-            <input id="authorArtworkName" type="text" size="25"><br /><br />
+        <b>Min price:</b>
+        <input class="form-control" id="minimalPrice" type="text">
+        <br />
 
-            <p>
-                <b>Search by artwork name:</b><br />
-            </p>
-            <input id="artworkName" type="text" size="25"><br /><br />
+        <b>Max price:</b>
+        <input class="form-control" id="maximalPrice" type="text">
+        <br/>
 
-            <b>price ot i do</b><br />
-            <input id="minimalPrice" type="text" size="10" style="margin-right: 10px;" ><input id="maximalPrice" type="text" size="10"><br /><br />
+        <label>
+            <input id="oderbyDate" type="checkbox"/> Order by date of auction
+        </label>
+        <br/>
 
-
-            <label><input id="oderbyDate" type="checkbox"/> Order by date of auction</label><br>
-
-            <button onclick="viewLotsObject.searchByParameters()">Search</button>
-            <button onclick="viewLotsObject.clearFilter()">Clear</button>
-        </div>
+        <button class="btn" onclick="viewLotsObject.searchByParameters()">
+            Search
+        </button>
+        <button class="btn" onclick="viewLotsObject.clearFilter()">
+            Clear
+        </button>
     </div>
+</div>
 
 
 
 
-<div class="col-md-8" style="background-color: white">
+<div class="col-md-8">
+    <div class="tabs center-align">
+        <button class="btn" id="allLotsButton"
+                onclick="viewLotsObject.openTab(viewLotsObject.ALL_LOTS)">
+            All lots
+        </button>
 
-    <button id="allLotsButton"
-            onclick="viewLotsObject.openTab(viewLotsObject.ALL_LOTS)">
-        All lots
-    </button>
+        <button class="btn" id="myLotsButton"
+                onclick="viewLotsObject.openTab(viewLotsObject.MY_LOTS)">
+            My lots
+        </button>
 
-    <button id="myLotsButton"
-            onclick="viewLotsObject.openTab(viewLotsObject.MY_LOTS)">
-        My lots
-    </button>
+        <button class="btn" id="myRatesLotsButton"
+                onclick="viewLotsObject.openTab(viewLotsObject.MY_RATES_LOTS)">
+            My rates
+        </button>
 
-    <button id="myRatesLotsButton"
-            onclick="viewLotsObject.openTab(viewLotsObject.MY_RATES_LOTS)">
-        My rates
-    </button>
-
-    <button id="myWinsLotsButton"
-            onclick="viewLotsObject.openTab(viewLotsObject.MY_WINS_LOTS)">
-        My wins
-    </button>
-
-    <div id="lotList">
-        @*@{
-                Html.RenderAction("Lots");
-            }*@
+        <button class="btn" id="myWinsLotsButton"
+                onclick="viewLotsObject.openTab(viewLotsObject.MY_WINS_LOTS)">
+            My wins
+        </button>
     </div>
+    <div id="lotList"></div>
 </div>
 
 

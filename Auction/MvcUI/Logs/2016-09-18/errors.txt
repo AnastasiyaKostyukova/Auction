@@ -1,0 +1,4 @@
+2016-09-18 23:53:18.0205|ERROR|MvcUI.MvcApplication|System.ArgumentException: The parameters dictionary contains a null entry for parameter 'id' of non-nullable type 'System.Int32' for method 'System.Web.Mvc.ActionResult Lot(Int32)' in 'MvcUI.Controllers.LotManagerController'. An optional parameter must be a reference type, a nullable type, or be declared as an optional parameter.
+Parameter name: parameters
+2016-09-18 23:53:34.2967|ERROR|MvcUI.MvcApplication|System.ArgumentException: The parameters dictionary contains a null entry for parameter 'id' of non-nullable type 'System.Int32' for method 'System.Web.Mvc.ActionResult Lot(Int32)' in 'MvcUI.Controllers.LotManagerController'. An optional parameter must be a reference type, a nullable type, or be declared as an optional parameter.
+Parameter name: parameters

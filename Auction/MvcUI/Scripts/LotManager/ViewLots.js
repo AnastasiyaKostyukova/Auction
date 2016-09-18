@@ -112,7 +112,7 @@
     }
 
     function buildLoadingImageTag() {
-        return "<img src='" + self.loadingImage + "'/>";
+        return "<div class='center-align'><img src='" + self.loadingImage + "'/></div>";
     }
 
     function buildQueryString(tabName, pageNumber, withSearch) {

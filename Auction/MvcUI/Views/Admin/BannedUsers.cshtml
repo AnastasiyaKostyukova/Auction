@@ -1,0 +1,13 @@
+﻿@model IEnumerable<BLL.Interface.Models.BLLUser>
+@{
+    ViewBag.Title = "BannedUsers";
+}
+
+<h2>Banned Users</h2>
+
+<ul>
+    @foreach (var user in Model)
+    {
+        <li>@Html.ActionLink(user.Email, "UsersEdit", "Admin", new {id = user.Id}, null)</li>
+    }
+</ul>

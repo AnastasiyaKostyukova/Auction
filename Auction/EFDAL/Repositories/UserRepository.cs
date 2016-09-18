@@ -41,16 +41,32 @@ namespace EFDAL.Repositories
             return _auctionContext.Users.FirstOrDefault(u => u.Id == id);
         }
 
-        public bool RemoveUser(int id)
+        public bool ChangeBanStatusUser(int id, bool isBan)
         {
             var user = GetUserById(id);
-            if (user == null)
+            var roleName = isBan ? "banned" : "user";
+            var role = _auctionContext.Roles.FirstOrDefault(r => r.Name == roleName);
+            if (user == null || role == null)
             {
                 return false;
             }
 
-            _auctionContext.Users.Remove(user);
+            user.RoleId = role.Id;
+            _auctionContext.SaveChanges();
             return true;
+        }
+
+        public IEnumerable<User> GetBannedUsers()
+        {
+            var bannedRole = _auctionContext.Roles.FirstOrDefault(r => r.Name == "banned");
+
+            if (bannedRole == null)
+            {
+                return new List<User>();
+            }
+
+            var users = _auctionContext.Users.Where(r => r.RoleId == bannedRole.Id);
+            return users;
         }
 
         public bool UpdateUser(User updatedUser)

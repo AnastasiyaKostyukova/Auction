@@ -1,7 +1,21 @@
-﻿@{
+﻿@using MvcUI.ViewModels
+@model AboutModel
+@{
     ViewBag.Title = "About";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<p>There is description of project.</p>
+<h2>Art auction</h2>
+
+<div>
+    <p>There is description of project.</p>
+    <p>ART Auction is a resource where contemporary artists can exhibit their own work.</p>
+</div>
+
+<div>
+    <div> Count all users: @Model.CountUsers</div>
+    <div> Count Sold Lots: @Model.CountSoldLots</div>
+    <div> Count all Active Lots: @Model.CountActiveLots</div>
+</div>
+
+<h1 style="color: red">@ViewBag.Message</h1>
+

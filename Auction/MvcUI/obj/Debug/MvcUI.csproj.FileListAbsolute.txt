@@ -149,3 +149,5 @@ D:\Training EPAM Nastya\My finish PROJECT\Auction\MvcUI\bin\Newtonsoft.Json.xml
 D:\Training EPAM Nastya\My finish PROJECT\Auction\MvcUI\obj\Debug\MvcUI.csprojResolveAssemblyReference.cache
 D:\Training EPAM Nastya\My finish PROJECT\Auction\MvcUI\obj\Debug\MvcUI.dll
 D:\Training EPAM Nastya\My finish PROJECT\Auction\MvcUI\obj\Debug\MvcUI.pdb
+D:\Training EPAM Nastya\My finish PROJECT\Auction\MvcUI\bin\NLog.dll
+D:\Training EPAM Nastya\My finish PROJECT\Auction\MvcUI\bin\NLog.xml

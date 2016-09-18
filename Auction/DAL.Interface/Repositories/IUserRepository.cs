@@ -14,6 +14,7 @@ namespace DAL.Interface.Repositories
         User GetUserByEmail(string email);
         User GetUserById(int id);
         bool UpdateUser(User user);
-        bool RemoveUser(int id);
+        bool ChangeBanStatusUser(int id, bool isBan);
+        IEnumerable<User> GetBannedUsers();
     }
 }
