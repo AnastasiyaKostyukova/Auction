@@ -81,7 +81,7 @@ namespace MvcUI.Controllers
                                  && ((lot.LotIsFinishedAuction && lot.CurrentBuyerId == 0) || !lot.LotIsFinishedAuction))
                                 || User.IsInRole("admin");
 
-            lotView.CanRate = currentUserId != lot.UserOwnerId && lot.LotIsFinishedAuction == false;
+            lotView.CanRate = currentUserId != lot.UserOwnerId && lot.LotIsFinishedAuction == false && lot.CurrentBuyerId != currentUserId;
             lotView.CanUpdate = lot.UserOwnerId == currentUserId && lot.LotIsFinishedAuction == false;
             lotView.CanSeeUser = User.IsInRole("admin");
 

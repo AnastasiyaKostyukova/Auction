@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ITestWriter.cs" />
     <Compile Include="Models\BLLLot.cs" />
     <Compile Include="Models\BLLRate.cs" />
     <Compile Include="Models\BLLRole.cs" />

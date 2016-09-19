@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using BLL.Interface.Services;
 using MvcUI.ViewModels;
@@ -30,11 +29,12 @@ namespace MvcUI.Controllers
 
             if (User.Identity.IsAuthenticated && User.IsInRole("banned"))
             {
-                ViewBag.Message = "You was banned";
+                ViewBag.Message = "You was banned. To determine the cause you may write by mail admin@admin.com";
             }
 
 			return View(aboutModel);
 		}
+
 
 	    public ActionResult BannedUserInfo()
 	    {

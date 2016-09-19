@@ -47,7 +47,6 @@
     <Compile Include="Services\CRUDUserService.cs" />
     <Compile Include="Services\Helper.cs" />
     <Compile Include="Services\LotService.cs" />
-    <Compile Include="TestWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BLL.Interface\BLL.Interface.csproj">

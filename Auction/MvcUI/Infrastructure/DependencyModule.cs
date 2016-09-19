@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using BLL.Interface;
-using Ninject.Modules;
+﻿using Ninject.Modules;
 using DAL.Interface.Repositories;
 using EFDAL.Repositories;
-using BLL;
 using BLL.Interface.Services;
 using BLL.Services;
 

@@ -58,9 +58,11 @@
                         if (HttpContext.Current.User.IsInRole("admin"))
                         {
                             color = "color: red";
+                            <li>@Html.ActionLink("Banned Users", "BannedUsers", "Admin")</li>
                         }
 
-                        <li style="@color" class = "navbar-brand">@HttpContext.Current.User.Identity.Name</li>
+                        <li style="@color" class="navbar-brand">@HttpContext.Current.User.Identity.Name</li>
+
                         <li>@Html.ActionLink("Sign Off", "SignOff", "Account")</li>
                     }
                 </ul>
