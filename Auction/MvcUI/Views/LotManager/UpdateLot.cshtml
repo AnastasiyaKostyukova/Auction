@@ -33,12 +33,6 @@
                         <td><b>@Html.DisplayTextFor(r => r.StartingPrice)</b></td>
                     </tr>
                 </table>
-                @*<dl>
-                    <dt>Name: @Html.DisplayTextFor(r => r.ArtworkName)</dt>
-                    <dt>Author of image: @Html.DisplayTextFor(r => r.Author)</dt>
-                    <dt>Artwork format: @Html.DisplayTextFor(r => r.ArtworkFormat)</dt>
-                    <dt>Starting price: @Html.DisplayTextFor(r => r.StartingPrice)</dt>
-                </dl>*@
 
                 <img src="@Html.DisplayTextFor(r => r.Photos)" width="500"/>
             </div>
@@ -77,7 +71,7 @@
                 </div>
                 <p>
                     <br/><br/><br/>
-                    <input type="submit" value="Update this lot"/>
+                    <input class="btn btn-info" type="submit" value="Update this lot"/>
                 </p>
             </div>
         </fieldset>

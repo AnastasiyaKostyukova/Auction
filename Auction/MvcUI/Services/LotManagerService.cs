@@ -124,24 +124,35 @@ namespace MvcUI.Services
                 lotsRequest.PageNumber = 1;
             }
 
-            var lots = GetLotsByTabName(lotsRequest.Tab, userEmail);
+            var errorMessage = ValidateSearchRequestModel(lotsRequest);
+            lotsRequest.SearchErrors = errorMessage;
 
-            var bllSearchModel = new BLLSearch
-            {
-                SearchByArtworkName = lotsRequest.SearchArtworkName,
-                SearchByPictureAuthor = lotsRequest.SearchPictureAuthor,
-                SearchByMinPrice = lotsRequest.SearchMinPrice.GetValueOrDefault(),
-                SearchByMaxPrice = lotsRequest.SearchMaxPrice.GetValueOrDefault(),
-                OrderByAuctionDate = lotsRequest.OrderByAuctionDate
-            };
+            var lots = new List<BLLLot>();
 
-            lots = _lotService.Search(bllSearchModel, lots).ToList();
+            if (string.IsNullOrEmpty(lotsRequest.SearchErrors))
+            {   
+                // Get all lots for current tab
+                lots = GetLotsByTabName(lotsRequest.Tab, userEmail);
+
+                var bllSearchModel = new BLLSearch
+                {
+                    SearchByArtworkName = lotsRequest.SearchArtworkName,
+                    SearchByPictureAuthor = lotsRequest.SearchPictureAuthor,
+                    SearchByMinPrice = lotsRequest.SearchMinPrice.GetValueOrDefault(),
+                    SearchByMaxPrice = lotsRequest.SearchMaxPrice.GetValueOrDefault(),
+                    OrderByAuctionDate = lotsRequest.OrderByAuctionDate
+                };
+
+                // Get lots by searchModel
+                lots = _lotService.Search(bllSearchModel, lots).ToList();
+            }
+
             var model = BuildPagingModel(lots, lotsRequest, userEmail);
 
             return model;
         }
 
-        public void ValidateAndFixSearchRequestModel(LotsRequestModel lotsRequest)
+        public string ValidateSearchRequestModel(LotsRequestModel lotsRequest)
         {
             var errors = new StringBuilder();
 
@@ -173,15 +184,7 @@ namespace MvcUI.Services
                 }
             }
 
-            if (errors.Length > 0)
-            {
-                lotsRequest.SearchArtworkName = string.Empty;
-                lotsRequest.SearchPictureAuthor = string.Empty;
-                lotsRequest.SearchMaxPrice = null;
-                lotsRequest.SearchMinPrice = null;
-            }
-
-            lotsRequest.SearchErrors = errors.ToString();
+            return errors.ToString();
         }
     }
 }

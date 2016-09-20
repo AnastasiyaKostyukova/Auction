@@ -58,10 +58,9 @@ namespace MvcUI.Controllers
         }
 
         public ActionResult Lots(LotsRequestModel lotsRequest)
-        {
-            _lotManagerService.ValidateAndFixSearchRequestModel(lotsRequest);
+        {   
             var model = _lotManagerService.BuildLotsViewModelByRequestModel(lotsRequest, User.Identity.Name);
-            return PartialView("_AllLots", model);
+            return PartialView("_LotsList", model);
         }
 
         public ActionResult Lot(int id)

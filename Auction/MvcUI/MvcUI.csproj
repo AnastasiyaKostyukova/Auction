@@ -179,7 +179,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\PagingHelper.cs" />
+    <Compile Include="Helpers\LotsPageHelper.cs" />
     <Compile Include="Infrastructure\DependencyModule.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -221,7 +221,7 @@
     <Content Include="Views\LotManager\CreateLot.cshtml" />
     <Content Include="Views\LotManager\Index.cshtml" />
     <Content Include="Views\LotManager\Lot.cshtml" />
-    <Content Include="Views\Shared\_AllLots.cshtml" />
+    <Content Include="Views\Shared\_LotsList.cshtml" />
     <Content Include="Views\LotManager\UpdateLot.cshtml" />
     <Content Include="Views\Admin\UsersEdit.cshtml" />
     <Content Include="Views\Home\BannedUserInfo.cshtml" />

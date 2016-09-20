@@ -1,5 +1,4 @@
-﻿@using BLL.Interface.Models
-@using MvcUI.Helpers
+﻿@using MvcUI.Helpers
 @using MvcUI.ViewModels
 @model LotsViewModel
 @{
@@ -8,61 +7,27 @@
 
 @Scripts.Render("~/bundles/jquery.unobtrusive")
 
-<script src="@Url.Content("~/Scripts/LotManager/ViewLots.js")"></script>
-
 <script type="text/javascript">
-    @*var viewLotsObject = new viewLots();
+    var loadingImage = '@Url.Content("~/content/loadingImages/loading.gif")';
 
-    viewLotsObject.LOT_ACTION_URL = '@Url.Action("Lots")';
-    viewLotsObject.ALL_LOTS = 'all_lots';
-    viewLotsObject.MY_LOTS = 'my_lots';
-    viewLotsObject.MY_RATES_LOTS = 'my_rates_lots';
-    viewLotsObject.MY_WINS_LOTS = 'my_wins_lots'
-    viewLotsObject.loadingImage = '@Url.Content("~/content/loadingImages/loading.gif")';
-
-    // page loaded
-    $(document).ready(function () {
-        viewLotsObject.openTab(viewLotsObject.ALL_LOTS);
-    });*@
+    function showLoadingAnimation() {
+        var loadingImageHtml = "<div class='center-align'><img src='" + loadingImage + "'/></div>";
+        $('#lotList').html(loadingImageHtml);
+    }
 </script>
 
 <body>
-<br/><br/>
+<br/>
 
 <div>
     <div class="tabs center-align">
-        <button class="btn" id="allLotsButton"
-                onclick="viewLotsObject.openTab(viewLotsObject.ALL_LOTS)">
-            All lots
-        </button>
-
-        <button class="btn" id="myLotsButton"
-                onclick="viewLotsObject.openTab(viewLotsObject.MY_LOTS)">
-            My lots
-        </button>
-
-        <button class="btn" id="myRatesLotsButton"
-                onclick="viewLotsObject.openTab(viewLotsObject.MY_RATES_LOTS)">
-            My rates
-        </button>
-
-        <button class="btn" id="myWinsLotsButton"
-                onclick="viewLotsObject.openTab(viewLotsObject.MY_WINS_LOTS)">
-            My wins
-        </button>
-
-
-        @if (Model.Tab == "my_rates_lots")
-        {
-            @Html.ActionLink("MY Rates", "Index", "LotManager", new {Tab = "my_rates_lots", PageNumber = 1}, new {@class = "btn btn-success"})
-        }
-        else
-        {
-            @Html.ActionLink("MY Rates", "Index", "LotManager", new { Tab = "my_rates_lots", PageNumber = 1 }, new { @class = "btn btn-info" })
-        }
+        @Html.BuildLotsTabs(Model, "All Lots", "all_lots", x => @Url.Action("Index", "LotManager", new {Tab = x}))
+        @Html.BuildLotsTabs(Model, "My Rates", "my_rates_lots", x => @Url.Action("Index", "LotManager", new { Tab = x }))
+        @Html.BuildLotsTabs(Model, "My Lots", "my_lots", x => @Url.Action("Index", "LotManager", new { Tab = x }))
+        @Html.BuildLotsTabs(Model, "My Wins", "my_wins_lots", x => @Url.Action("Index", "LotManager", new { Tab = x }))
 
     </div>
-    <div id="lotList">@Html.Partial("_AllLots", Model)</div>
+    <div id="lotList">@Html.Partial("_LotsList", Model)</div>
 </div>
 
 </body>

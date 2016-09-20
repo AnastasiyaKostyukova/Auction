@@ -1,0 +1,10 @@
+2016-09-20 22:10:38.7707|ERROR|MvcUI.MvcApplication|System.InvalidOperationException: The partial view '_AllLots' was not found or no view engine supports the searched locations. The following locations were searched:
+~/Views/LotManager/_AllLots.aspx
+~/Views/LotManager/_AllLots.ascx
+~/Views/Shared/_AllLots.aspx
+~/Views/Shared/_AllLots.ascx
+~/Views/LotManager/_AllLots.cshtml
+~/Views/LotManager/_AllLots.vbhtml
+~/Views/Shared/_AllLots.cshtml
+~/Views/Shared/_AllLots.vbhtml
+2016-09-20 22:46:34.1643|ERROR|MvcUI.MvcApplication|System.Web.HttpCompileException: D:\Training EPAM Nastya\My finish PROJECT\Auction\MvcUI\Views\LotManager\Index.cshtml(20): error CS7036: There is no argument given that corresponds to the required formal parameter 'urlFunc' of 'PagingHelper.BuildTabs(HtmlHelper, LotsRequestModel, string, string, Func<string, string>)'
