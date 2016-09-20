@@ -32,6 +32,11 @@ textarea {
     font-size: 20px;
 }
 
+.validation-search-errors {
+    color: red;
+    font-size: 16px;
+}
+
 .menu{
 background:yellow;
 width:230px;

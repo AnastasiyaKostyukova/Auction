@@ -179,6 +179,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\PagingHelper.cs" />
     <Compile Include="Infrastructure\DependencyModule.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -213,6 +214,8 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\LotManager\ViewLots.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Views\LotManager\CreateLot.cshtml" />
@@ -223,6 +226,7 @@
     <Content Include="Views\Admin\UsersEdit.cshtml" />
     <Content Include="Views\Home\BannedUserInfo.cshtml" />
     <Content Include="Views\Admin\BannedUsers.cshtml" />
+    <Content Include="Views\Shared\_LotsSearchError.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />

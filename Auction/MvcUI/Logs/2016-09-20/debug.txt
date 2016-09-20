@@ -1,0 +1,13 @@
+2016-09-20 00:00:39.4413|DEBUG|MvcUI.MvcApplication|Application started
+2016-09-20 00:03:22.1353|DEBUG|MvcUI.MvcApplication|Application started
+2016-09-20 00:05:00.4195|DEBUG|MvcUI.MvcApplication|Application started
+2016-09-20 00:13:43.0681|DEBUG|MvcUI.MvcApplication|Application started
+2016-09-20 00:35:49.2537|DEBUG|MvcUI.MvcApplication|Application started
+2016-09-20 00:41:52.8978|DEBUG|MvcUI.MvcApplication|Application started
+2016-09-20 00:46:05.5921|DEBUG|MvcUI.MvcApplication|Application started
+2016-09-20 00:48:23.7333|DEBUG|MvcUI.MvcApplication|Application started
+2016-09-20 00:52:56.6412|DEBUG|MvcUI.MvcApplication|Application started
+2016-09-20 00:57:02.1677|DEBUG|MvcUI.MvcApplication|Application started
+2016-09-20 01:06:47.5791|DEBUG|MvcUI.MvcApplication|Application started
+2016-09-20 01:11:09.7511|DEBUG|MvcUI.MvcApplication|Application started
+2016-09-20 20:05:10.5864|DEBUG|MvcUI.MvcApplication|Application started

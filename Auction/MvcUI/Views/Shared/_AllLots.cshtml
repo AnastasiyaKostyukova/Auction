@@ -1,67 +1,86 @@
 ﻿@using BLL.Interface.Models
+@using MvcUI.Helpers
 
 @model MvcUI.ViewModels.LotsViewModel
 
-<div>
-
-    @foreach (BLLLot lot in Model.Lots)
-    {
-        var lotClass = "class=lot";
-        if (Model.Tab == "my_rates_lots" && lot.CurrentBuyerId != Model.CurrentUserId)
+<div class="row">
+    <div class="col-md-4">
+        @using (Ajax.BeginForm("Lots", "LotManager", null, new AjaxOptions {HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "lotList"}))
         {
-            lotClass = "class=warning-lot";
-        }
-        else if (lot.LotIsFinishedAuction)
-        {
-            lotClass = "class=finished-lot";
-        }
-
-        <fieldset @lotClass>
-            <div class="row">
-                <div class="col-md-6">
-                    <div>
-                        Name: <b>@lot.ArtworkName</b>
-                    </div>
-                    <div>
-                        Author of image: <b>@lot.Author</b>
-                    </div>
-                    <div>
-                        Artwork format: <b>@lot.ArtworkFormat</b>
-                    </div>
-                    <div>
-                        Current price: <b>@lot.CurrentPrice</b>
-                    </div>
-                    <b>@Html.ActionLink("View details", "Lot", "LotManager", new {id = lot.Id}, null)</b>
-                </div>
-                <div class="col-md-6 right-align">
-                    <img src="@lot.Photos" class="lot-image-in-list"/>
-                </div>
+            <div class="validation-search-errors">
+                @Html.DisplayFor(r => r.SearchErrors)
             </div>
-        </fieldset>
-        <br/>
-    }
+            <p>
+                <b>Search by author artwork:</b>
+            </p>
+            @Html.TextBoxFor(r => r.SearchPictureAuthor)
+            <br/>
 
-</div>
-<div class="center-align">
-    <button class="btn" id="goToFirstPage" onclick="viewLotsObject.openPage('1')">
-        First
-    </button>
+            <p>
+                <b>Search by artwork name:</b>
+            </p>
+            @Html.TextBoxFor(r => r.SearchArtworkName)
+            <br/>
+            <b>Min price:</b>
+            @Html.TextBoxFor(r => r.SearchMinPrice)
+            <br/>
 
-    <button class="btn" id="goToPage1" onclick="viewLotsObject.numericButtonsOfPagePressed('goToPage1')">
-        1
-    </button>
+            <b>Max price:</b>
+            @Html.TextBoxFor(r => r.SearchMaxPrice)
+            <br/>
 
-    <button class="btn" id="goToPage2" onclick="viewLotsObject.numericButtonsOfPagePressed('goToPage2')">
-        2
-    </button>
+            <label>
+                @Html.CheckBoxFor(r => r.OrderByAuctionDate)
+            </label>
+            <br/>
 
-    <button class="btn" id="goToPage3" onclick="viewLotsObject.numericButtonsOfPagePressed('goToPage3')">
-        3
-    </button>
+            @Html.HiddenFor(r => r.Tab)
+            @Html.HiddenFor(r => r.LotsCountOnPage)
 
-    <button class="btn" id="goToLastPage" onclick="viewLotsObject.openPage('@Model.MaxPageNumber')">
-        Last
-    </button>
+            <input type="submit" class="btn" value="search"/>
+        }
+
+    </div>
+    <div class="col-md-8">
+
+        @foreach (BLLLot lot in Model.Lots)
+        {
+            var lotClass = "class=lot";
+            if (Model.Tab == "my_rates_lots" && lot.CurrentBuyerId != Model.CurrentUserId)
+            {
+                lotClass = "class=warning-lot";
+            }
+            else if (lot.LotIsFinishedAuction)
+            {
+                lotClass = "class=finished-lot";
+            }
+
+            <fieldset @lotClass>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div>
+                            Name: <b>@lot.ArtworkName</b>
+                        </div>
+                        <div>
+                            Author of image: <b>@lot.Author</b>
+                        </div>
+                        <div>
+                            Artwork format: <b>@lot.ArtworkFormat</b>
+                        </div>
+                        <div>
+                            Current price: <b>@lot.CurrentPrice</b>
+                        </div>
+                        <b>@Html.ActionLink("View details", "Lot", "LotManager", new {id = lot.Id}, null)</b>
+                    </div>
+                    <div class="col-md-6 right-align">
+                        <img src="@lot.Photos" class="lot-image-in-list"/>
+                    </div>
+                </div>
+            </fieldset>
+            <br/>
+        }
+
+    </div>
 </div>
 
 <script type="text/javascript">
@@ -70,3 +89,22 @@
 
     viewLotsObject.renderPageButtons(currentPageNumber, maxPage);
 </script>
+
+<div class="center-align">
+
+    @Html.LotsPageLinks(
+    Model,
+    "lotList",
+    x => Url.Action("Lots", "LotManager",
+        new
+        {
+            PageNumber = x,
+            Tab = Model.Tab,
+            LotsCountOnPage = Model.LotsCountOnPage,
+            PictureAuthor = Model.SearchPictureAuthor,
+            MinPrice = Model.SearchMinPrice,
+            MaxPrice = Model.SearchMaxPrice,
+            ArtworkName = Model.SearchArtworkName,
+            OrderByAuctionDate = Model.OrderByAuctionDate
+        }))
+</div>

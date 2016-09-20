@@ -16,3 +16,12 @@ D:\Training EPAM Nastya\My finish PROJECT\Auction\BLL\bin\Debug\DAL.Interface.pd
 D:\Training EPAM Nastya\My finish PROJECT\Auction\BLL\obj\Debug\BLL.csprojResolveAssemblyReference.cache
 D:\Training EPAM Nastya\My finish PROJECT\Auction\BLL\obj\Debug\BLL.dll
 D:\Training EPAM Nastya\My finish PROJECT\Auction\BLL\obj\Debug\BLL.pdb
+D:\Projects\My finish PROJECT\Auction\BLL\bin\Debug\BLL.dll
+D:\Projects\My finish PROJECT\Auction\BLL\bin\Debug\BLL.pdb
+D:\Projects\My finish PROJECT\Auction\BLL\bin\Debug\BLL.Interface.dll
+D:\Projects\My finish PROJECT\Auction\BLL\bin\Debug\DAL.Interface.dll
+D:\Projects\My finish PROJECT\Auction\BLL\bin\Debug\BLL.Interface.pdb
+D:\Projects\My finish PROJECT\Auction\BLL\bin\Debug\DAL.Interface.pdb
+D:\Projects\My finish PROJECT\Auction\BLL\obj\Debug\BLL.csprojResolveAssemblyReference.cache
+D:\Projects\My finish PROJECT\Auction\BLL\obj\Debug\BLL.dll
+D:\Projects\My finish PROJECT\Auction\BLL\obj\Debug\BLL.pdb

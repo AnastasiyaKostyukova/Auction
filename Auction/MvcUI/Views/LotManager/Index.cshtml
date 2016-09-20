@@ -1,14 +1,17 @@
 ﻿@using BLL.Interface.Models
+@using MvcUI.Helpers
 @using MvcUI.ViewModels
 @model LotsViewModel
 @{
     ViewBag.Title = "Index";
 }
 
+@Scripts.Render("~/bundles/jquery.unobtrusive")
+
 <script src="@Url.Content("~/Scripts/LotManager/ViewLots.js")"></script>
 
 <script type="text/javascript">
-    var viewLotsObject = new viewLots();
+    @*var viewLotsObject = new viewLots();
 
     viewLotsObject.LOT_ACTION_URL = '@Url.Action("Lots")';
     viewLotsObject.ALL_LOTS = 'all_lots';
@@ -20,59 +23,13 @@
     // page loaded
     $(document).ready(function () {
         viewLotsObject.openTab(viewLotsObject.ALL_LOTS);
-    });
+    });*@
 </script>
 
 <body>
-<br/><br />
+<br/><br/>
+
 <div>
-    <div class="col-md-4">
-        <label>
-            Count of lots per page:
-            <select class="form-control" id="countLotsOnPage">
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="30">30</option>
-            </select>
-        </label><br/><br/>
-
-        <p>
-            <b>Search by author artwork:</b>
-        </p>
-        <input class="form-control" id="authorArtworkName" type="text">
-        <br/>
-
-        <p>
-            <b>Search by artwork name:</b>
-        </p>
-        <input class="form-control" id="artworkName" type="text">
-        <br/>
-
-        <b>Min price:</b>
-        <input class="form-control" id="minimalPrice" type="text">
-        <br />
-
-        <b>Max price:</b>
-        <input class="form-control" id="maximalPrice" type="text">
-        <br/>
-
-        <label>
-            <input id="oderbyDate" type="checkbox"/> Order by date of auction
-        </label>
-        <br/>
-
-        <button class="btn" onclick="viewLotsObject.searchByParameters()">
-            Search
-        </button>
-        <button class="btn" onclick="viewLotsObject.clearFilter()">
-            Clear
-        </button>
-    </div>
-</div>
-
-
-<div class="col-md-8">
     <div class="tabs center-align">
         <button class="btn" id="allLotsButton"
                 onclick="viewLotsObject.openTab(viewLotsObject.ALL_LOTS)">
@@ -93,11 +50,20 @@
                 onclick="viewLotsObject.openTab(viewLotsObject.MY_WINS_LOTS)">
             My wins
         </button>
+
+
+        @if (Model.Tab == "my_rates_lots")
+        {
+            @Html.ActionLink("MY Rates", "Index", "LotManager", new {Tab = "my_rates_lots", PageNumber = 1}, new {@class = "btn btn-success"})
+        }
+        else
+        {
+            @Html.ActionLink("MY Rates", "Index", "LotManager", new { Tab = "my_rates_lots", PageNumber = 1 }, new { @class = "btn btn-info" })
+        }
+
     </div>
-    <div id="lotList"></div>
+    <div id="lotList">@Html.Partial("_AllLots", Model)</div>
 </div>
-
-
 
 </body>
 

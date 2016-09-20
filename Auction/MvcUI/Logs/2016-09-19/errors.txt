@@ -3,3 +3,8 @@
 2016-09-19 11:07:58.9890|ERROR|MvcUI.MvcApplication|System.Web.HttpException: The controller for path '/vk.com/yu4_walker' was not found or does not implement IController.
 2016-09-19 11:08:01.1195|ERROR|MvcUI.MvcApplication|System.Web.HttpException: The controller for path '/vk.com/yu4_walker' was not found or does not implement IController.
 2016-09-19 11:11:07.3632|ERROR|MvcUI.MvcApplication|System.Web.HttpException: A public action method 'z=photo10363702_432375393' was not found on controller 'MvcUI.Controllers.LotManagerController'.
+2016-09-19 22:06:28.4562|ERROR|MvcUI.MvcApplication|System.Web.HttpParseException: An opening "(" is missing the corresponding closing ")".
+
+2016-09-19 22:22:03.2374|ERROR|MvcUI.MvcApplication|System.Web.HttpException: A public action method 'About' was not found on controller 'MvcUI.Controllers.LotManagerController'.
+2016-09-19 23:05:56.7269|ERROR|MvcUI.MvcApplication|System.Web.HttpParseException: End of file was reached before the end of the block comment.  All comments that start with the "@*" sequence must be terminated with a matching "*@" sequence.
+

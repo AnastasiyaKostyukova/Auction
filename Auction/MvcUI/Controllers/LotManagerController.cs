@@ -24,7 +24,7 @@ namespace MvcUI.Controllers
             _crudLotService = crudLotService;
             _crudUserService = crudUserService;
             _lotService = lotService;
-            _lotManagerService = new LotManagerService(_crudLotService, _crudUserService);
+            _lotManagerService = new LotManagerService(_crudLotService, _crudUserService, _lotService);
         }
 
         public ActionResult Index(LotsRequestModel lotsRequest)
@@ -42,30 +42,25 @@ namespace MvcUI.Controllers
             //    _crudLotService.CreateLot(bllLot);
             //}
 
-            return View(new LotsViewModel());
+            if (lotsRequest.LotsCountOnPage == 0)
+            {
+                lotsRequest.LotsCountOnPage = 5;
+            }
+
+            if (lotsRequest.Tab == null)
+            {
+                lotsRequest.Tab = LotManagerService.TabAllLots;
+            }
+
+            var model = _lotManagerService.BuildLotsViewModelByRequestModel(lotsRequest, User.Identity.Name);
+
+            return View(model);
         }
 
         public ActionResult Lots(LotsRequestModel lotsRequest)
         {
-            if (lotsRequest.PageNumber == 0)
-            {
-                lotsRequest.PageNumber = 1;
-            }
-
-            var lots = _lotManagerService.GetLotsByTabName(lotsRequest.Tab, User.Identity.Name);
-
-            var bllSearchModel = new BLLSearch
-            {
-                SearchByArtworkName = lotsRequest.ArtworkName,
-                SearchByPictureAuthor = lotsRequest.PictureAuthor,
-                SearchByMinPrice = lotsRequest.MinPrice,
-                SearchByMaxPrice = lotsRequest.MaxPrice,
-                OrderByAuctionDate = lotsRequest.OrderByAuctionDate
-            };
-
-            lots = _lotService.Search(bllSearchModel, lots).ToList();
-            var model = _lotManagerService.BuildPagingModel(lots, lotsRequest, User.Identity.Name);
-
+            _lotManagerService.ValidateAndFixSearchRequestModel(lotsRequest);
+            var model = _lotManagerService.BuildLotsViewModelByRequestModel(lotsRequest, User.Identity.Name);
             return PartialView("_AllLots", model);
         }
 
@@ -142,7 +137,7 @@ namespace MvcUI.Controllers
 
             var user = _crudUserService.GetUserByEmail(User.Identity.Name);
 
-            var createdLot = BuildBllLot(newLot, user.Id);
+            var createdLot = _lotManagerService.BuildBllLot(newLot, user.Id);
 
             _crudLotService.CreateLot(createdLot);
             return RedirectToAction("Index", "LotManager");
@@ -188,25 +183,6 @@ namespace MvcUI.Controllers
         {
             _crudLotService.DeleteLot(id);
             return true;
-        }
-
-        private BLLLot BuildBllLot(LotCreateModel newLot, int userId)
-        {
-            var bllLot = new BLLLot
-            {
-                ArtworkName = newLot.ArtworkName,
-                Author = newLot.Author,
-                Photos = newLot.Photos,
-                ArtworkFormat = newLot.ArtworkFormat,
-                Description = newLot.Description,
-                YearOfCreation = newLot.YearOfCreation,
-                StartingPrice = newLot.StartingPrice,
-                MinimalStepRate = newLot.MinimalStepRate,
-                DateOfAuction = newLot.DateOfAuction,
-                CurrentPrice = newLot.StartingPrice,
-                UserOwnerId = userId
-            };
-            return bllLot;
         }
     }
 }
