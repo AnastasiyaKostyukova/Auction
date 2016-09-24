@@ -95,11 +95,7 @@
 </div>
 
 <div class="center-align">
-
-    @Html.LotsPageLinks(
-    Model,
-    "lotList",
-    x => Url.Action("Lots", "LotManager",
+    @Html.LotsPageLinks(Model, "lotList", x => Url.Action("Lots", "LotManager",
         new
         {
             PageNumber = x,
@@ -111,5 +107,5 @@
             SearchArtworkName = Model.SearchArtworkName,
             OrderByAuctionDate = Model.OrderByAuctionDate
         }),
-    "showLoadingAnimation()");
+    "showLoadingAnimation()")
 </div>

@@ -1,0 +1,1 @@
+2016-09-22 23:33:35.4101|DEBUG|MvcUI.MvcApplication|Application started

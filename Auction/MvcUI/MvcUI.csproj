@@ -216,7 +216,6 @@
     </Content>
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
-    <Content Include="Scripts\LotManager\ViewLots.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Views\LotManager\CreateLot.cshtml" />
     <Content Include="Views\LotManager\Index.cshtml" />

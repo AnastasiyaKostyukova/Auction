@@ -34,9 +34,10 @@ namespace MvcUI.Controllers
             //    var bllLot = new BLLLot
             //    {
             //        ArtworkName = "Name_" + i,
-            //        DateOfAuction = DateTime.Now,
+            //        DateOfAuction = new DateTime(2016, 12, 31),
             //        UserOwnerId = 1,
-            //        Author = "podlec"
+            //        Author = "cat in",
+            //        Photos = "http://d39kbiy71leyho.cloudfront.net/wp-content/uploads/2016/05/09170020/cats-politics-TN.jpg"
             //    };
 
             //    _crudLotService.CreateLot(bllLot);
